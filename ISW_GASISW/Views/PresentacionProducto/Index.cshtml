@@ -1,13 +1,13 @@
-﻿@model IEnumerable<ISW_GASISW.Models.seccion_bodega>
+﻿@model IEnumerable<ISW_GASISW.Models.presentacion_producto>
 
 @{
-    ViewBag.Title = "Mantenimiento - Secciones de Bodega";
+    ViewBag.Title = "Mantenimiento - Presentacion de Producto";
 }
 
 <div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
-            Mantenimiento - Secciones de Bodega
+            Mantenimiento - Presentacion de Producto
         </div>
     </div>
     <div class="panel-body">
@@ -33,7 +33,10 @@
                     <thead>
                         <tr>
                             <th data-sort-initial="true" data-type="numeric">
-                                Seccion de Bodega
+                                Presentacion de Producto
+                            </th>
+                            <th>
+                                Tamaño de Presentacion
                             </th>
                             <th data-sort-ignore="true"></th>
                         </tr>
@@ -44,6 +47,9 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.tamannio)
                                 </td>
                                 <td>
                                     <ul class="nav nav-pills">
@@ -57,7 +63,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="4">
+                            <td colspan="3">
                                 <div class="pagination pagination-centered hide-if-no-paging"></div>
                             </td>
                         </tr>

@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CategoriaProductoController.cs" />
+    <Compile Include="Controllers\PresentacionProductoController.cs" />
     <Compile Include="Controllers\SeccionBodegaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -399,6 +400,11 @@
     <Content Include="Views\CategoriaProducto\Create.cshtml" />
     <Content Include="Views\CategoriaProducto\Edit.cshtml" />
     <Content Include="Views\CategoriaProducto\Delete.cshtml" />
+    <Content Include="Views\PresentacionProducto\Index.cshtml" />
+    <Content Include="Views\PresentacionProducto\Details.cshtml" />
+    <Content Include="Views\PresentacionProducto\Create.cshtml" />
+    <Content Include="Views\PresentacionProducto\Edit.cshtml" />
+    <Content Include="Views\PresentacionProducto\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
