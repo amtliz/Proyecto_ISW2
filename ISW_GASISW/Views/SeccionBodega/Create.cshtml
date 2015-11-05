@@ -1,0 +1,45 @@
+﻿@model ISW_GASISW.Models.seccion_bodega
+
+@{
+    ViewBag.Title = "Crear - Seccion de Bodega";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Crear - Seccion de Bodega
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="container">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Nombrede la Seccion de Bodega
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.nombre)
+                            @Html.ValidationMessageFor(model => model.nombre)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <input type="submit" class="btn btn-primary" value="Crear" />
+                            <div class="btn btn-default">
+                                @Html.ActionLink("Regresar", "Index")
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
