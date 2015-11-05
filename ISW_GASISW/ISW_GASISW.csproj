@@ -137,6 +137,7 @@
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\MunicipioController.cs" />
     <Compile Include="Controllers\PresentacionProductoController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SeccionBodegaController.cs" />
     <Compile Include="Controllers\TipoCompraController.cs" />
     <Compile Include="Controllers\TipoFacturacionController.cs" />
@@ -435,6 +436,11 @@
     <Content Include="Views\TipoCompra\Create.cshtml" />
     <Content Include="Views\TipoCompra\Edit.cshtml" />
     <Content Include="Views\TipoCompra\Delete.cshtml" />
+    <Content Include="Views\Rol\Index.cshtml" />
+    <Content Include="Views\Rol\Details.cshtml" />
+    <Content Include="Views\Rol\Create.cshtml" />
+    <Content Include="Views\Rol\Edit.cshtml" />
+    <Content Include="Views\Rol\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
