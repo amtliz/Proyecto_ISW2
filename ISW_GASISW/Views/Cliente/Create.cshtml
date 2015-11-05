@@ -1,0 +1,120 @@
+﻿@model ISW_GASISW.Models.cliente
+
+@{
+    ViewBag.Title = "Crear - Cliente";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Crear - Cliente
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="container">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Primer Nombre
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.nombre1)
+                            @Html.ValidationMessageFor(model => model.nombre1)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Segundo Nombre
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.nombre2)
+                            @Html.ValidationMessageFor(model => model.nombre2)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Primer Apellido
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.apellido1)
+                            @Html.ValidationMessageFor(model => model.apellido1)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Segundo Apellido
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.apellido2)
+                            @Html.ValidationMessageFor(model => model.apellido2)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Telefono
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.telefono)
+                            @Html.ValidationMessageFor(model => model.telefono)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Direccion
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.direccion)
+                            @Html.ValidationMessageFor(model => model.direccion)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Municipio
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("MUNICIPIO_id", String.Empty)
+                            @Html.ValidationMessageFor(model => model.MUNICIPIO_id)
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            # DUI
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.num_dui)
+                            @Html.ValidationMessageFor(model => model.num_dui)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Email
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.email)
+                            @Html.ValidationMessageFor(model => model.email)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <input type="submit" class="btn btn-primary" value="Crear" />
+                            <div class="btn btn-default">
+                                @Html.ActionLink("Regresar", "Index")
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
