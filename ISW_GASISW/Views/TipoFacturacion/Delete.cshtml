@@ -1,0 +1,37 @@
+﻿@model ISW_GASISW.Models.tipo_facturacion
+
+@{
+    ViewBag.Title = "Eliminar - Tipo de Facturacion";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Eliminar - Tipo de Facturacion
+        </div>
+    </div>
+    <div class="panel-body">
+        <h3>Esta seguro que desea eliminar este Tipo de Facturacion?</h3>
+        <fieldset>
+            <div class="form-group">
+                <div class="editor-label">
+                    Nombre del Tipo de Facturacion
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.nombre)
+                </div>
+            </div>
+
+        </fieldset>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <input type="submit" value="Eliminar" class="btn btn-primary" />
+                <div class="btn btn-default">
+                    @Html.ActionLink("Regresar", "Index")
+                </div>
+            </div>
+        }
+    </div>
+</div>

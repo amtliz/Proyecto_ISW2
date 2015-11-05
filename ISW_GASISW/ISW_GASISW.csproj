@@ -138,6 +138,7 @@
     <Compile Include="Controllers\MunicipioController.cs" />
     <Compile Include="Controllers\PresentacionProductoController.cs" />
     <Compile Include="Controllers\SeccionBodegaController.cs" />
+    <Compile Include="Controllers\TipoFacturacionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -417,6 +418,11 @@
     <Content Include="Views\Municipio\Create.cshtml" />
     <Content Include="Views\Municipio\Edit.cshtml" />
     <Content Include="Views\Municipio\Delete.cshtml" />
+    <Content Include="Views\TipoFacturacion\Index.cshtml" />
+    <Content Include="Views\TipoFacturacion\Details.cshtml" />
+    <Content Include="Views\TipoFacturacion\Create.cshtml" />
+    <Content Include="Views\TipoFacturacion\Edit.cshtml" />
+    <Content Include="Views\TipoFacturacion\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
