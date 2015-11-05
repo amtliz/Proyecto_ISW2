@@ -1,0 +1,92 @@
+﻿@model ISW_GASISW.Models.empleado
+
+@{
+    ViewBag.Title = "Eliminar - Empleado";
+}
+
+<<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Eliminar - Empleado
+        </div>
+    </div>
+    <div class="panel-body">
+        <h3>Esta seguro que desea eliminar este Empleado?</h3>
+        <fieldset>
+            <div class="form-group">
+                <div class="editor-label">
+                    Primer Nombre
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.nombre1)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Segundo Nombre
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.nombre2)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Primer Apellido
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.apellido1)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Segundo Apellido
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.apellido2)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Telefono
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.telefono)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Direccion
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.direccion)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Municipio
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.municipio.nombre)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Sucursal
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.sucursal.nombre)
+                </div>
+            </div>
+        </fieldset>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <input type="submit" value="Eliminar" class="btn btn-primary" />
+                <div class="btn btn-default">
+                    @Html.ActionLink("Regresar", "Index")
+                </div>
+            </div>
+        }
+    </div>
+</div>
