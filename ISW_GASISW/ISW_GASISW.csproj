@@ -138,6 +138,7 @@
     <Compile Include="Controllers\MunicipioController.cs" />
     <Compile Include="Controllers\PresentacionProductoController.cs" />
     <Compile Include="Controllers\SeccionBodegaController.cs" />
+    <Compile Include="Controllers\TipoCompraController.cs" />
     <Compile Include="Controllers\TipoFacturacionController.cs" />
     <Compile Include="Controllers\TipoMovimientoCajaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -429,6 +430,11 @@
     <Content Include="Views\TipoMovimientoCaja\Create.cshtml" />
     <Content Include="Views\TipoMovimientoCaja\Edit.cshtml" />
     <Content Include="Views\TipoMovimientoCaja\Delete.cshtml" />
+    <Content Include="Views\TipoCompra\Index.cshtml" />
+    <Content Include="Views\TipoCompra\Details.cshtml" />
+    <Content Include="Views\TipoCompra\Create.cshtml" />
+    <Content Include="Views\TipoCompra\Edit.cshtml" />
+    <Content Include="Views\TipoCompra\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
