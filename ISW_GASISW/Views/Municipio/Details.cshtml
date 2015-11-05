@@ -1,25 +1,31 @@
-﻿@model ISW_GASISW.Models.departamento
+﻿@model ISW_GASISW.Models.municipio
 
 @{
-    ViewBag.Title = "Detalles - Departamento";
+    ViewBag.Title = "Detalles - Municipio";
 }
 
 <div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
-            Detalles - Departamento
+            Detalles - Municipio
         </div>
     </div>
     <div class="panel-body">
         <fieldset>
             <div class="form-group">
                 <div class="editor-label">
-                    Nombre del Departamento
+                    Nombre del Municipio
                 </div>
                 <div class="display-field">
-                    <div class="display-field">
-                        @Html.DisplayFor(model => model.nombre)
-                    </div>
+                    @Html.DisplayFor(model => model.nombre)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Departamento al que pertence
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.departamento.nombre)
                 </div>
             </div>
         </fieldset>
