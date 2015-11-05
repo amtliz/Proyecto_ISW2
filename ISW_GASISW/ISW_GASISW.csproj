@@ -135,6 +135,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\CategoriaProductoController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
+    <Compile Include="Controllers\FormulariosController.cs" />
     <Compile Include="Controllers\MunicipioController.cs" />
     <Compile Include="Controllers\PresentacionProductoController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
@@ -447,6 +448,11 @@
     <Content Include="Views\Producto\Create.cshtml" />
     <Content Include="Views\Producto\Edit.cshtml" />
     <Content Include="Views\Producto\Delete.cshtml" />
+    <Content Include="Views\Formularios\Index.cshtml" />
+    <Content Include="Views\Formularios\Details.cshtml" />
+    <Content Include="Views\Formularios\Create.cshtml" />
+    <Content Include="Views\Formularios\Edit.cshtml" />
+    <Content Include="Views\Formularios\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

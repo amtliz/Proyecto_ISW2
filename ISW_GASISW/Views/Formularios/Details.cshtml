@@ -1,0 +1,37 @@
+﻿@model ISW_GASISW.Models.formularios
+
+@{
+    ViewBag.Title = "Detalle - Area de Accesos";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Detalles - Area de Accesos
+        </div>
+    </div>
+    <div class="panel-body">
+        <fieldset>
+            <div class="form-group">
+                <div class="editor-label">
+                    Nombre de Area de Acceso
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.nombre)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Url de Area de Acceso
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.url)
+                </div>
+            </div>
+        </fieldset>
+        <ul class="nav nav-pills">
+            <li role="presentation">@Html.ActionLink("Edit", "Edit", new { id = Model.id }) </li>
+            <li role="presentation">@Html.ActionLink("Back to List", "Index")</li>
+        </ul>
+    </div>
+</div>
