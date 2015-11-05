@@ -1,34 +1,43 @@
 ﻿@model ISW_GASISW.Models.categoria_producto
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear - Categoria de Producto";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>categoria_producto</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.nombre)
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Crear - Categoria de Producto
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.nombre)
-            @Html.ValidationMessageFor(model => model.nombre)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="container">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Nombre de la Categoria de Producto
+                        </div>
+                        <div class="editor-field">
+                            @Html.EditorFor(model => model.nombre)
+                            @Html.ValidationMessageFor(model => model.nombre)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <input type="submit" class="btn btn-primary" value="Crear" />
+                            <div class="btn btn-default">
+                                @Html.ActionLink("Regresar", "Index")
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        }
+    </div>
 </div>
 
 @section Scripts {

@@ -1,22 +1,31 @@
 ﻿@model ISW_GASISW.Models.categoria_producto
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles - Categoria de Producto";
 }
 
-<h2>Details</h2>
-
-<fieldset>
-    <legend>categoria_producto</legend>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.nombre)
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Detalles - Categoria de Producto
+        </div>
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nombre)
+    <div class="panel-body">
+        <fieldset>
+            <div class="form-group">
+                <div class="editor-label">
+                    Nombre de la Categoria de Producto
+                </div>
+                <div class="display-field">
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.nombre)
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <ul class="nav nav-pills">
+            <li role="presentation">@Html.ActionLink("Edit", "Edit", new { id = Model.id }) </li>
+            <li role="presentation">@Html.ActionLink("Back to List", "Index")</li>
+        </ul>
     </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
