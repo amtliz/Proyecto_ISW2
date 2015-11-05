@@ -103,7 +103,22 @@
                         </div>
                         <div id="Opciones" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <p>Aqui iran las Consultas y los Reportes</p>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#Opciones" href="#Parametros">
+                                                Parametros
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="Parametros" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul class="nav nav-stacked">
+                                                <li>@Html.ActionLink("Departamento", "Index", "Departamento")</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

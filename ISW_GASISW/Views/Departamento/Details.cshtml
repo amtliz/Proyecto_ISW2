@@ -1,0 +1,32 @@
+﻿@model ISW_GASISW.Models.departamento
+
+@{
+    ViewBag.Title = "Detalles - Departamento";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Detalles - Departamento
+        </div>
+    </div>
+    <div class="panel-body">
+        <fieldset>
+            <div class="form-group">
+                <div class="editor-label">
+                    Nombre del Departamento
+                </div>
+                <div class="display-field">
+                    <div class="display-field">
+                        @Html.DisplayFor(model => model.nombre)
+                        <
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <ul class="nav nav-pills">
+            <li role="presentation">@Html.ActionLink("Edit", "Edit", new { id = Model.id }) </li>
+            <li role="presentation">@Html.ActionLink("Back to List", "Index")</li>
+        </ul>
+    </div>
+</div>
