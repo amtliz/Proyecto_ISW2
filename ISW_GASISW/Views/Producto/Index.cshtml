@@ -1,13 +1,13 @@
-﻿@model IEnumerable<ISW_GASISW.Models.tipo_movimiento>
+﻿@model IEnumerable<ISW_GASISW.Models.producto>
 
 @{
-    ViewBag.Title = "Parametros - Tipo de Movimientos de Caja";
+    ViewBag.Title = "Mantenimiento - Producto";
 }
 
 <div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
-            Parametros - Tipos de Movimiento de Caja
+            Mantenimiento - Producto
         </div>
     </div>
     <div class="panel-body">
@@ -33,7 +33,19 @@
                     <thead>
                         <tr>
                             <th data-sort-initial="true">
-                                Tipo de Movimiento de Caja
+                                Nombre Producto
+                            </th>
+                            <th>
+                                Presentacion del Producto
+                            </th>
+                            <th>
+                                Categoria del Producto
+                            </th>
+                            <th>
+                                Precio Unitario de Ventas
+                            </th>
+                            <th data-type="numeric">
+                                Estado
                             </th>
                             <th data-sort-ignore="true"></th>
                         </tr>
@@ -46,18 +58,30 @@
                                     @Html.DisplayFor(modelItem => item.nombre)
                                 </td>
                                 <td>
-                                <ul class="nav nav-pills">
-                                    <li role="presentation">@Html.ActionLink("Editar", "Edit", new { id = item.id })</li>
-                                    <li role="presentation">@Html.ActionLink("Detalles", "Details", new { id = item.id })</li>
-                                    <li role="presentation">@Html.ActionLink("Eliminar", "Delete", new { id = item.id })</li>
-                                </ul>
+                                    @Html.DisplayFor(modelItem => item.presentacion_producto.nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.categoria_producto.nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.precio_venta_u)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.estado)
+                                </td>
+                                <td>
+                                    <ul class="nav nav-pills">
+                                        <li role="presentation">@Html.ActionLink("Editar", "Edit", new { id = item.id })</li>
+                                        <li role="presentation">@Html.ActionLink("Detalles", "Details", new { id = item.id })</li>
+                                        <li role="presentation">@Html.ActionLink("Eliminar", "Delete", new { id = item.id })</li>
+                                    </ul>
                                 </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="2">
+                            <td colspan="6">
                                 <div class="pagination pagination-centered hide-if-no-paging"></div>
                             </td>
                         </tr>
