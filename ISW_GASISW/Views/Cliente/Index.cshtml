@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ISW_GASISW.Models.cliente>
+
+@{
+    ViewBag.Title = "Mantenimiento - Cliente";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Mantenimiento - Cliente
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="btn btn-default linkBlanco">
+                    @Html.ActionLink("Crear Nuevo", "Create")
+                </div>
+            </div>
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search fa-2x"></span></span>
+                        <input class="form-control input-lg" id="filter" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container table-responsive toggle-circle-filled">
+            <div class="col-lg-11">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="3">
+                    <thead>
+                        <tr>
+                            <th data-sort-initial="true">
+                                Primer Nombre
+                            </th>
+                            <th>
+                                Segundo Nombre
+                            </th>
+                            <th>
+                                Primer Apellido
+                            </th>
+                            <th>
+                                Segundo Apellido
+                            </th>
+                            <th data-sort-ignore="true">
+                                Telefono
+                            </th>
+                            <th data-sort-ignore="true">
+                                Direccion
+                            </th>
+                            <th>
+                                Municipio
+                            </th>
+                            <th data-sort-ignore="true">
+                                # DUI
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th data-sort-ignore="true"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombre1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombre2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.apellido1)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.apellido2)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.telefono)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.direccion)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.municipio.nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.num_dui)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.email)
+                                </td>
+                                <td>
+                                    <ul class="nav nav-pills">
+                                        <li role="presentation">@Html.ActionLink("Editar", "Edit", new { id = item.id })</li>
+                                        <li role="presentation">@Html.ActionLink("Detalles", "Details", new { id = item.id })</li>
+                                        <li role="presentation">@Html.ActionLink("Eliminar", "Delete", new { id = item.id })</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="10">
+                                <div class="pagination pagination-centered hide-if-no-paging"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\CategoriaProductoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
@@ -493,6 +494,11 @@
     <Content Include="Views\Cliente\Create.cshtml" />
     <Content Include="Views\Cliente\Edit.cshtml" />
     <Content Include="Views\Cliente\Delete.cshtml" />
+    <Content Include="Views\Caja\Index.cshtml" />
+    <Content Include="Views\Caja\Details.cshtml" />
+    <Content Include="Views\Caja\Create.cshtml" />
+    <Content Include="Views\Caja\Edit.cshtml" />
+    <Content Include="Views\Caja\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
