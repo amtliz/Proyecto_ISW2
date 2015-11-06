@@ -33,19 +33,22 @@
                     <thead>
                         <tr>
                             <th data-sort-initial="true">
-                                Nombre Producto
+                                Producto
                             </th>
                             <th>
-                                Presentacion del Producto
+                                Presentacion
                             </th>
                             <th>
-                                Categoria del Producto
+                                Categoria
                             </th>
                             <th>
-                                Precio Unitario de Ventas
+                                Precio Unitario
                             </th>
-                            <th data-type="numeric">
+                            <th>
                                 Estado
+                            </th>
+                            <th>
+                                Proveedor
                             </th>
                             <th data-sort-ignore="true"></th>
                         </tr>
@@ -70,6 +73,9 @@
                                     @Html.DisplayFor(modelItem => item.estado)
                                 </td>
                                 <td>
+                                    @Html.DisplayFor(modelItem => item.proveedor.nombre)
+                                </td>
+                                <td>
                                     <ul class="nav nav-pills">
                                         <li role="presentation">@Html.ActionLink("Editar", "Edit", new { id = item.id })</li>
                                         <li role="presentation">@Html.ActionLink("Detalles", "Details", new { id = item.id })</li>
@@ -81,7 +87,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="6">
+                            <td colspan="7">
                                 <div class="pagination pagination-centered hide-if-no-paging"></div>
                             </td>
                         </tr>

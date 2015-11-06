@@ -1,0 +1,54 @@
+﻿@model ISW_GASISW.Models.m_orden_compra
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>m_orden_compra</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.fecha_emitida)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.fecha_emitida)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.empleado.nombre1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.empleado.nombre1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.estado)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.estado)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.empleado1.nombre1)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.empleado1.nombre1)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.proveedor.nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.proveedor.nombre)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

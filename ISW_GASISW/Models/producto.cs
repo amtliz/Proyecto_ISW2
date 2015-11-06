@@ -29,6 +29,7 @@ namespace ISW_GASISW.Models
         public long CATEGORIA_PRODUCTO_id { get; set; }
         public float precio_venta_u { get; set; }
         public bool estado { get; set; }
+        public long PROVEEDOR_id { get; set; }
     
         public virtual categoria_producto categoria_producto { get; set; }
         public virtual ICollection<d_compra> d_compra { get; set; }
@@ -37,5 +38,6 @@ namespace ISW_GASISW.Models
         public virtual ICollection<inventario> inventario { get; set; }
         public virtual ICollection<lote> lote { get; set; }
         public virtual presentacion_producto presentacion_producto { get; set; }
+        public virtual proveedor proveedor { get; set; }
     }
 }

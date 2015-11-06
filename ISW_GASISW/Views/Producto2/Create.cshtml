@@ -62,6 +62,16 @@
                             @Html.ValidationMessageFor(model => model.estado)
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Proveedor del Producto
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("PROVEEDOR_id", String.Empty)
+                            @Html.ValidationMessageFor(model => model.PROVEEDOR_id)
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="form-group col-lg-4">
                             <input type="submit" class="btn btn-primary" value="Crear" />

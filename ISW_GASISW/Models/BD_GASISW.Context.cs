@@ -49,7 +49,6 @@ namespace ISW_GASISW.Models
         public DbSet<nota_credito_venta> nota_credito_venta { get; set; }
         public DbSet<permisos> permisos { get; set; }
         public DbSet<presentacion_producto> presentacion_producto { get; set; }
-        public DbSet<producto> producto { get; set; }
         public DbSet<proveedor> proveedor { get; set; }
         public DbSet<rol> rol { get; set; }
         public DbSet<seccion_bodega> seccion_bodega { get; set; }
@@ -60,5 +59,6 @@ namespace ISW_GASISW.Models
         public DbSet<tipo_movimiento> tipo_movimiento { get; set; }
         public DbSet<usuario> usuario { get; set; }
         public DbSet<accesos> accesos { get; set; }
+        public DbSet<producto> producto { get; set; }
     }
 }

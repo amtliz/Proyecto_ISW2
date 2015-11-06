@@ -1,0 +1,54 @@
+﻿@model ISW_GASISW.Models.d_orden_compra
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>d_orden_compra</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.M_ORDEN_COMPRA_id, "m_orden_compra")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("M_ORDEN_COMPRA_id", String.Empty)
+            @Html.ValidationMessageFor(model => model.M_ORDEN_COMPRA_id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PRODUCTO_id, "producto")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PRODUCTO_id", String.Empty)
+            @Html.ValidationMessageFor(model => model.PRODUCTO_id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.cantidad)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.cantidad)
+            @Html.ValidationMessageFor(model => model.cantidad)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

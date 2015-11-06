@@ -18,6 +18,7 @@ namespace ISW_GASISW.Models
         {
             this.m_compra = new HashSet<m_compra>();
             this.m_orden_compra = new HashSet<m_orden_compra>();
+            this.producto = new HashSet<producto>();
         }
     
         public long id { get; set; }
@@ -30,5 +31,6 @@ namespace ISW_GASISW.Models
         public virtual ICollection<m_compra> m_compra { get; set; }
         public virtual ICollection<m_orden_compra> m_orden_compra { get; set; }
         public virtual municipio municipio { get; set; }
+        public virtual ICollection<producto> producto { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace ISW_GASISW.Models
         public long SECCION_BODEGA_id { get; set; }
     
         public virtual ICollection<kardex> kardex { get; set; }
-        public virtual producto producto { get; set; }
         public virtual seccion_bodega seccion_bodega { get; set; }
+        public virtual producto producto { get; set; }
     }
 }

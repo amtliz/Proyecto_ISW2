@@ -265,6 +265,7 @@
           <Property Name="CATEGORIA_PRODUCTO_id" Type="uint" Nullable="false" />
           <Property Name="precio_venta_u" Type="float" Nullable="false" />
           <Property Name="estado" Type="bool" Nullable="false" />
+          <Property Name="PROVEEDOR_id" Type="uint" Nullable="false" />
         </EntityType>
         <EntityType Name="proveedor">
           <Key>
@@ -855,6 +856,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_PRODUCTO_PROVEEDOR1">
+          <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
+          <End Role="producto" Type="Self.producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="PROVEEDOR_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_PROVEEDOR_MUNICIPIO1">
           <End Role="municipio" Type="Self.municipio" Multiplicity="1" />
           <End Role="proveedor" Type="Self.proveedor" Multiplicity="*" />
@@ -1111,6 +1124,10 @@
             <End Role="presentacion_producto" EntitySet="presentacion_producto" />
             <End Role="producto" EntitySet="producto" />
           </AssociationSet>
+          <AssociationSet Name="fk_PRODUCTO_PROVEEDOR1" Association="Self.fk_PRODUCTO_PROVEEDOR1">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
           <AssociationSet Name="fk_PROVEEDOR_MUNICIPIO1" Association="Self.fk_PROVEEDOR_MUNICIPIO1">
             <End Role="municipio" EntitySet="municipio" />
             <End Role="proveedor" EntitySet="proveedor" />
@@ -1150,7 +1167,7 @@
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="producto" Relationship="Self.fk_PRODUCTO_CATEGORIA_PRODUCTO1" FromRole="categoria_producto" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_PRODUCTO_CATEGORIA_PRODUCTO1" FromRole="categoria_producto" ToRole="producto" />
         </EntityType>
         <EntityType Name="cliente">
           <Key>
@@ -1181,7 +1198,7 @@
           <Property Name="costo_unitario" Type="Single" Nullable="false" />
           <Property Name="total" Type="Single" Nullable="false" />
           <NavigationProperty Name="m_compra" Relationship="Self.fk_D_COMPRA_M_COMPRA1" FromRole="d_compra" ToRole="m_compra" />
-          <NavigationProperty Name="producto" Relationship="Self.fk_D_COMPRA_PRODUCTO1" FromRole="d_compra" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_D_COMPRA_PRODUCTO1" FromRole="d_compra" ToRole="producto" />
         </EntityType>
         <EntityType Name="d_orden_compra">
           <Key>
@@ -1192,7 +1209,7 @@
           <Property Name="PRODUCTO_id" Type="Int64" Nullable="false" />
           <Property Name="cantidad" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="m_orden_compra" Relationship="Self.fk_D_ORDEN_COMPRA_M_ORDEN_COMPRA1" FromRole="d_orden_compra" ToRole="m_orden_compra" />
-          <NavigationProperty Name="producto" Relationship="Self.fk_D_ORDEN_COMPRA_PRODUCTO1" FromRole="d_orden_compra" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_D_ORDEN_COMPRA_PRODUCTO1" FromRole="d_orden_compra" ToRole="producto" />
         </EntityType>
         <EntityType Name="d_venta">
           <Key>
@@ -1204,7 +1221,7 @@
           <Property Name="total" Type="Single" Nullable="false" />
           <Property Name="M_VENTA_id" Type="Int64" Nullable="false" />
           <NavigationProperty Name="m_venta" Relationship="Self.fk_D_VENTA_M_VENTA1" FromRole="d_venta" ToRole="m_venta" />
-          <NavigationProperty Name="producto" Relationship="Self.fk_D_VENTA_PRODUCTO1" FromRole="d_venta" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_D_VENTA_PRODUCTO1" FromRole="d_venta" ToRole="producto" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -1282,7 +1299,7 @@
           <Property Name="KARDEX_id" Type="Int64" Nullable="false" />
           <Property Name="precio_u" Type="Single" Nullable="false" />
           <NavigationProperty Name="kardex" Relationship="Self.fk_INVENTARIO_KARDEX1" FromRole="inventario" ToRole="kardex" />
-          <NavigationProperty Name="producto" Relationship="Self.fk_INVENTARIO_PRODUCTO1" FromRole="inventario" ToRole="producto" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_INVENTARIO_PRODUCTO1" FromRole="inventario" ToRole="producto" />
         </EntityType>
         <EntityType Name="kardex">
           <Key>
@@ -1310,8 +1327,8 @@
           <Property Name="PRODUCTO_id" Type="Int64" Nullable="false" />
           <Property Name="SECCION_BODEGA_id" Type="Int64" Nullable="false" />
           <NavigationProperty Name="kardex" Relationship="Self.fk_KARDEX_LOTE1" FromRole="lote" ToRole="kardex" />
-          <NavigationProperty Name="producto" Relationship="Self.fk_LOTE_PRODUCTO1" FromRole="lote" ToRole="producto" />
           <NavigationProperty Name="seccion_bodega" Relationship="Self.fk_LOTE_SECCION_BODEGA1" FromRole="lote" ToRole="seccion_bodega" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_LOTE_PRODUCTO1" FromRole="lote" ToRole="producto" />
         </EntityType>
         <EntityType Name="m_compra">
           <Key>
@@ -1439,25 +1456,7 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tamannio" Type="Single" />
-          <NavigationProperty Name="producto" Relationship="Self.fk_PRODUCTO_PRESENTACION_PRODUCTO" FromRole="presentacion_producto" ToRole="producto" />
-        </EntityType>
-        <EntityType Name="producto">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PRESENTACION_PRODUCTO_id" Type="Int64" Nullable="false" />
-          <Property Name="CATEGORIA_PRODUCTO_id" Type="Int64" Nullable="false" />
-          <Property Name="precio_venta_u" Type="Single" Nullable="false" />
-          <Property Name="estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="categoria_producto" Relationship="Self.fk_PRODUCTO_CATEGORIA_PRODUCTO1" FromRole="producto" ToRole="categoria_producto" />
-          <NavigationProperty Name="d_compra" Relationship="Self.fk_D_COMPRA_PRODUCTO1" FromRole="producto" ToRole="d_compra" />
-          <NavigationProperty Name="d_orden_compra" Relationship="Self.fk_D_ORDEN_COMPRA_PRODUCTO1" FromRole="producto" ToRole="d_orden_compra" />
-          <NavigationProperty Name="d_venta" Relationship="Self.fk_D_VENTA_PRODUCTO1" FromRole="producto" ToRole="d_venta" />
-          <NavigationProperty Name="inventario" Relationship="Self.fk_INVENTARIO_PRODUCTO1" FromRole="producto" ToRole="inventario" />
-          <NavigationProperty Name="lote" Relationship="Self.fk_LOTE_PRODUCTO1" FromRole="producto" ToRole="lote" />
-          <NavigationProperty Name="presentacion_producto" Relationship="Self.fk_PRODUCTO_PRESENTACION_PRODUCTO" FromRole="producto" ToRole="presentacion_producto" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_PRODUCTO_PRESENTACION_PRODUCTO" FromRole="presentacion_producto" ToRole="producto" />
         </EntityType>
         <EntityType Name="proveedor">
           <Key>
@@ -1472,6 +1471,7 @@
           <NavigationProperty Name="m_compra" Relationship="Self.fk_M_COMPRA_PROVEEDOR1" FromRole="proveedor" ToRole="m_compra" />
           <NavigationProperty Name="m_orden_compra" Relationship="Self.fk_M_ORDEN_COMPRA_PROVEEDOR1" FromRole="proveedor" ToRole="m_orden_compra" />
           <NavigationProperty Name="municipio" Relationship="Self.fk_PROVEEDOR_MUNICIPIO1" FromRole="proveedor" ToRole="municipio" />
+          <NavigationProperty Name="producto" Relationship="gasiswModel.fk_PRODUCTO_PROVEEDOR1" FromRole="proveedor" ToRole="producto" />
         </EntityType>
         <EntityType Name="rol">
           <Key>
@@ -1584,18 +1584,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_PRODUCTO_CATEGORIA_PRODUCTO1">
-          <End Role="categoria_producto" Type="Self.categoria_producto" Multiplicity="1" />
-          <End Role="producto" Type="Self.producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="categoria_producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="producto">
-              <PropertyRef Name="CATEGORIA_PRODUCTO_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_CLIENTE_MUNICIPIO1">
           <End Role="municipio" Type="Self.municipio" Multiplicity="1" />
           <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
@@ -1644,18 +1632,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_D_COMPRA_PRODUCTO1">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="d_compra" Type="Self.d_compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="d_compra">
-              <PropertyRef Name="PRODUCTO_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_D_ORDEN_COMPRA_M_ORDEN_COMPRA1">
           <End Role="m_orden_compra" Type="Self.m_orden_compra" Multiplicity="1" />
           <End Role="d_orden_compra" Type="Self.d_orden_compra" Multiplicity="*" />
@@ -1668,18 +1644,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_D_ORDEN_COMPRA_PRODUCTO1">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="d_orden_compra" Type="Self.d_orden_compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="d_orden_compra">
-              <PropertyRef Name="PRODUCTO_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_D_VENTA_M_VENTA1">
           <End Role="m_venta" Type="Self.m_venta" Multiplicity="1" />
           <End Role="d_venta" Type="Self.d_venta" Multiplicity="*" />
@@ -1689,18 +1653,6 @@
             </Principal>
             <Dependent Role="d_venta">
               <PropertyRef Name="M_VENTA_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_D_VENTA_PRODUCTO1">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="d_venta" Type="Self.d_venta" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="d_venta">
-              <PropertyRef Name="PRODUCTO_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1860,18 +1812,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_INVENTARIO_PRODUCTO1">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="inventario" Type="Self.inventario" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="inventario">
-              <PropertyRef Name="PRODUCTO_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_INVENTARIO_SUCURSAL1">
           <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
           <End Role="kardex" Type="Self.kardex" Multiplicity="*" />
@@ -1905,18 +1845,6 @@
             </Principal>
             <Dependent Role="kardex">
               <PropertyRef Name="MOVIMIENTO_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_LOTE_PRODUCTO1">
-          <End Role="producto" Type="Self.producto" Multiplicity="1" />
-          <End Role="lote" Type="Self.lote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="lote">
-              <PropertyRef Name="PRODUCTO_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2052,18 +1980,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_PRODUCTO_PRESENTACION_PRODUCTO">
-          <End Role="presentacion_producto" Type="Self.presentacion_producto" Multiplicity="1" />
-          <End Role="producto" Type="Self.producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="presentacion_producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="producto">
-              <PropertyRef Name="PRESENTACION_PRODUCTO_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_USUARIO_ROL1">
           <End Role="rol" Type="Self.rol" Multiplicity="1" />
           <End Role="usuario" Type="Self.usuario" Multiplicity="*" />
@@ -2101,7 +2017,6 @@
           <EntitySet Name="nota_credito_venta" EntityType="Self.nota_credito_venta" />
           <EntitySet Name="permisos" EntityType="Self.permisos" />
           <EntitySet Name="presentacion_producto" EntityType="Self.presentacion_producto" />
-          <EntitySet Name="producto" EntityType="Self.producto" />
           <EntitySet Name="proveedor" EntityType="Self.proveedor" />
           <EntitySet Name="rol" EntityType="Self.rol" />
           <EntitySet Name="seccion_bodega" EntityType="Self.seccion_bodega" />
@@ -2123,10 +2038,6 @@
             <End Role="caja" EntitySet="caja" />
             <End Role="moviementos_caja" EntitySet="moviementos_caja" />
           </AssociationSet>
-          <AssociationSet Name="fk_PRODUCTO_CATEGORIA_PRODUCTO1" Association="Self.fk_PRODUCTO_CATEGORIA_PRODUCTO1">
-            <End Role="categoria_producto" EntitySet="categoria_producto" />
-            <End Role="producto" EntitySet="producto" />
-          </AssociationSet>
           <AssociationSet Name="fk_CLIENTE_MUNICIPIO1" Association="Self.fk_CLIENTE_MUNICIPIO1">
             <End Role="municipio" EntitySet="municipio" />
             <End Role="cliente" EntitySet="cliente" />
@@ -2143,24 +2054,12 @@
             <End Role="m_compra" EntitySet="m_compra" />
             <End Role="d_compra" EntitySet="d_compra" />
           </AssociationSet>
-          <AssociationSet Name="fk_D_COMPRA_PRODUCTO1" Association="Self.fk_D_COMPRA_PRODUCTO1">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="d_compra" EntitySet="d_compra" />
-          </AssociationSet>
           <AssociationSet Name="fk_D_ORDEN_COMPRA_M_ORDEN_COMPRA1" Association="Self.fk_D_ORDEN_COMPRA_M_ORDEN_COMPRA1">
             <End Role="m_orden_compra" EntitySet="m_orden_compra" />
             <End Role="d_orden_compra" EntitySet="d_orden_compra" />
           </AssociationSet>
-          <AssociationSet Name="fk_D_ORDEN_COMPRA_PRODUCTO1" Association="Self.fk_D_ORDEN_COMPRA_PRODUCTO1">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="d_orden_compra" EntitySet="d_orden_compra" />
-          </AssociationSet>
           <AssociationSet Name="fk_D_VENTA_M_VENTA1" Association="Self.fk_D_VENTA_M_VENTA1">
             <End Role="m_venta" EntitySet="m_venta" />
-            <End Role="d_venta" EntitySet="d_venta" />
-          </AssociationSet>
-          <AssociationSet Name="fk_D_VENTA_PRODUCTO1" Association="Self.fk_D_VENTA_PRODUCTO1">
-            <End Role="producto" EntitySet="producto" />
             <End Role="d_venta" EntitySet="d_venta" />
           </AssociationSet>
           <AssociationSet Name="fk_MUNICIPIO_DEPARTAMENTO1" Association="Self.fk_MUNICIPIO_DEPARTAMENTO1">
@@ -2215,10 +2114,6 @@
             <End Role="kardex" EntitySet="kardex" />
             <End Role="inventario" EntitySet="inventario" />
           </AssociationSet>
-          <AssociationSet Name="fk_INVENTARIO_PRODUCTO1" Association="Self.fk_INVENTARIO_PRODUCTO1">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="inventario" EntitySet="inventario" />
-          </AssociationSet>
           <AssociationSet Name="fk_INVENTARIO_SUCURSAL1" Association="Self.fk_INVENTARIO_SUCURSAL1">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="kardex" EntitySet="kardex" />
@@ -2230,10 +2125,6 @@
           <AssociationSet Name="fk_KARDEX_MOVIMIENTO1" Association="Self.fk_KARDEX_MOVIMIENTO1">
             <End Role="movimiento" EntitySet="movimiento" />
             <End Role="kardex" EntitySet="kardex" />
-          </AssociationSet>
-          <AssociationSet Name="fk_LOTE_PRODUCTO1" Association="Self.fk_LOTE_PRODUCTO1">
-            <End Role="producto" EntitySet="producto" />
-            <End Role="lote" EntitySet="lote" />
           </AssociationSet>
           <AssociationSet Name="fk_LOTE_SECCION_BODEGA1" Association="Self.fk_LOTE_SECCION_BODEGA1">
             <End Role="seccion_bodega" EntitySet="seccion_bodega" />
@@ -2279,10 +2170,6 @@
             <End Role="municipio" EntitySet="municipio" />
             <End Role="sucursal" EntitySet="sucursal" />
           </AssociationSet>
-          <AssociationSet Name="fk_PRODUCTO_PRESENTACION_PRODUCTO" Association="Self.fk_PRODUCTO_PRESENTACION_PRODUCTO">
-            <End Role="presentacion_producto" EntitySet="presentacion_producto" />
-            <End Role="producto" EntitySet="producto" />
-          </AssociationSet>
           <AssociationSet Name="fk_USUARIO_ROL1" Association="Self.fk_USUARIO_ROL1">
             <End Role="rol" EntitySet="rol" />
             <End Role="usuario" EntitySet="usuario" />
@@ -2299,6 +2186,39 @@
           <AssociationSet Name="fk_ACCESOS_ROL1" Association="gasiswModel.fk_ACCESOS_ROL1">
             <End Role="rol" EntitySet="rol" />
             <End Role="accesos" EntitySet="accesos" />
+          </AssociationSet>
+          <EntitySet Name="producto" EntityType="gasiswModel.producto" />
+          <AssociationSet Name="fk_PRODUCTO_CATEGORIA_PRODUCTO1" Association="gasiswModel.fk_PRODUCTO_CATEGORIA_PRODUCTO1">
+            <End Role="categoria_producto" EntitySet="categoria_producto" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_D_COMPRA_PRODUCTO1" Association="gasiswModel.fk_D_COMPRA_PRODUCTO1">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="d_compra" EntitySet="d_compra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_D_ORDEN_COMPRA_PRODUCTO1" Association="gasiswModel.fk_D_ORDEN_COMPRA_PRODUCTO1">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="d_orden_compra" EntitySet="d_orden_compra" />
+          </AssociationSet>
+          <AssociationSet Name="fk_D_VENTA_PRODUCTO1" Association="gasiswModel.fk_D_VENTA_PRODUCTO1">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="d_venta" EntitySet="d_venta" />
+          </AssociationSet>
+          <AssociationSet Name="fk_INVENTARIO_PRODUCTO1" Association="gasiswModel.fk_INVENTARIO_PRODUCTO1">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="inventario" EntitySet="inventario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_LOTE_PRODUCTO1" Association="gasiswModel.fk_LOTE_PRODUCTO1">
+            <End Role="producto" EntitySet="producto" />
+            <End Role="lote" EntitySet="lote" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PRODUCTO_PRESENTACION_PRODUCTO" Association="gasiswModel.fk_PRODUCTO_PRESENTACION_PRODUCTO">
+            <End Role="presentacion_producto" EntitySet="presentacion_producto" />
+            <End Role="producto" EntitySet="producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_PRODUCTO_PROVEEDOR1" Association="gasiswModel.fk_PRODUCTO_PROVEEDOR1">
+            <End Role="proveedor" EntitySet="proveedor" />
+            <End Role="producto" EntitySet="producto" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="accesos">
@@ -2346,6 +2266,122 @@
             </Principal>
             <Dependent Role="accesos">
               <PropertyRef Name="ROL_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PRESENTACION_PRODUCTO_id" Type="Int64" Nullable="false" />
+          <Property Name="CATEGORIA_PRODUCTO_id" Type="Int64" Nullable="false" />
+          <Property Name="precio_venta_u" Type="Single" Nullable="false" />
+          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="PROVEEDOR_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="categoria_producto" Relationship="gasiswModel.fk_PRODUCTO_CATEGORIA_PRODUCTO1" FromRole="producto" ToRole="categoria_producto" />
+          <NavigationProperty Name="d_compra" Relationship="gasiswModel.fk_D_COMPRA_PRODUCTO1" FromRole="producto" ToRole="d_compra" />
+          <NavigationProperty Name="d_orden_compra" Relationship="gasiswModel.fk_D_ORDEN_COMPRA_PRODUCTO1" FromRole="producto" ToRole="d_orden_compra" />
+          <NavigationProperty Name="d_venta" Relationship="gasiswModel.fk_D_VENTA_PRODUCTO1" FromRole="producto" ToRole="d_venta" />
+          <NavigationProperty Name="inventario" Relationship="gasiswModel.fk_INVENTARIO_PRODUCTO1" FromRole="producto" ToRole="inventario" />
+          <NavigationProperty Name="lote" Relationship="gasiswModel.fk_LOTE_PRODUCTO1" FromRole="producto" ToRole="lote" />
+          <NavigationProperty Name="presentacion_producto" Relationship="gasiswModel.fk_PRODUCTO_PRESENTACION_PRODUCTO" FromRole="producto" ToRole="presentacion_producto" />
+          <NavigationProperty Name="proveedor" Relationship="gasiswModel.fk_PRODUCTO_PROVEEDOR1" FromRole="producto" ToRole="proveedor" />
+        </EntityType>
+        <Association Name="fk_PRODUCTO_CATEGORIA_PRODUCTO1">
+          <End Type="gasiswModel.categoria_producto" Role="categoria_producto" Multiplicity="1" />
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria_producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="CATEGORIA_PRODUCTO_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_D_COMPRA_PRODUCTO1">
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="1" />
+          <End Type="gasiswModel.d_compra" Role="d_compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="d_compra">
+              <PropertyRef Name="PRODUCTO_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_D_ORDEN_COMPRA_PRODUCTO1">
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="1" />
+          <End Type="gasiswModel.d_orden_compra" Role="d_orden_compra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="d_orden_compra">
+              <PropertyRef Name="PRODUCTO_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_D_VENTA_PRODUCTO1">
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="1" />
+          <End Type="gasiswModel.d_venta" Role="d_venta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="d_venta">
+              <PropertyRef Name="PRODUCTO_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_INVENTARIO_PRODUCTO1">
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="1" />
+          <End Type="gasiswModel.inventario" Role="inventario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="inventario">
+              <PropertyRef Name="PRODUCTO_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_LOTE_PRODUCTO1">
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="1" />
+          <End Type="gasiswModel.lote" Role="lote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="lote">
+              <PropertyRef Name="PRODUCTO_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PRODUCTO_PRESENTACION_PRODUCTO">
+          <End Type="gasiswModel.presentacion_producto" Role="presentacion_producto" Multiplicity="1" />
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="presentacion_producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="PRESENTACION_PRODUCTO_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_PRODUCTO_PROVEEDOR1">
+          <End Type="gasiswModel.proveedor" Role="proveedor" Multiplicity="1" />
+          <End Type="gasiswModel.producto" Role="producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="proveedor">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="producto">
+              <PropertyRef Name="PROVEEDOR_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2620,18 +2656,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="producto">
-            <EntityTypeMapping TypeName="gasiswModel.producto">
-              <MappingFragment StoreEntitySet="producto">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="PRESENTACION_PRODUCTO_id" ColumnName="PRESENTACION_PRODUCTO_id" />
-                <ScalarProperty Name="CATEGORIA_PRODUCTO_id" ColumnName="CATEGORIA_PRODUCTO_id" />
-                <ScalarProperty Name="precio_venta_u" ColumnName="precio_venta_u" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="proveedor">
             <EntityTypeMapping TypeName="gasiswModel.proveedor">
               <MappingFragment StoreEntitySet="proveedor">
@@ -2720,6 +2744,19 @@
                 <ScalarProperty Name="ROL_id" ColumnName="ROL_id" />
                 <ScalarProperty Name="PERMISOS_id" ColumnName="PERMISOS_id" />
                 <ScalarProperty Name="FORMULARIOS_id" ColumnName="FORMULARIOS_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producto">
+            <EntityTypeMapping TypeName="gasiswModel.producto">
+              <MappingFragment StoreEntitySet="producto">
+                <ScalarProperty Name="PROVEEDOR_id" ColumnName="PROVEEDOR_id" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="precio_venta_u" ColumnName="precio_venta_u" />
+                <ScalarProperty Name="CATEGORIA_PRODUCTO_id" ColumnName="CATEGORIA_PRODUCTO_id" />
+                <ScalarProperty Name="PRESENTACION_PRODUCTO_id" ColumnName="PRESENTACION_PRODUCTO_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Procesos - Orden de Compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Crear - Orden de Compra
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="btn btn-default linkBlanco">
+                    @Html.ActionLink("Crear Nuevo", "Create")
+                </div>
+            </div>
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search fa-2x"></span></span>
+                        <input class="form-control input-lg" id="filter" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container table-responsive toggle-circle-filled">
+            <div class="col-lg-11">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="3">
+                    <thead>
+                        <tr>
+                            <th>Debo LLenar esto</th>
+                            <th data-sort-ignore="true"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Debo llenar esto</td>
+                            <td>
+                                <ul class="nav nav-pills">
+                                    <li role="presentation">@Html.ActionLink("Editar", "Edit")</li>
+                                    <li role="presentation">@Html.ActionLink("Detalles", "Details")</li>
+                                    <li role="presentation">@Html.ActionLink("Eliminar", "Delete")</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
