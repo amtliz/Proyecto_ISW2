@@ -30,7 +30,7 @@ namespace ISW_GASISW.Controllers
 
             if (!ValidUser)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
 
             string passwordBD = db.usuario.Where(x => x.nombre == USERS.nombre).Select(x => x.password).Single();
@@ -47,7 +47,7 @@ namespace ISW_GASISW.Controllers
 
             if (!PasswordMatches)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
             else
             {
