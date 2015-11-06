@@ -18,7 +18,9 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Index()
         {
-            return View(db.tipo_compra.ToList());
+            
+                return View(db.tipo_compra.ToList());
+            
         }
 
         //
