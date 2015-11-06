@@ -1,0 +1,38 @@
+﻿@model ISW_GASISW.Models.usuario
+@{
+    ViewBag.Title = "GASISW";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+
+    @using (@Html.BeginForm("Login", "Home"))
+    {
+        <div class="col-lg-4 col-lg-offset-4">
+            <div class="panel panel-default" style="background-color:#2196f3;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="txtuserid" style="color:white">Usario:</label>
+                                @Html.TextBoxFor(m => m.nombre, new { @id = "txtuserid", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="txtpasword" style="color:white">Password:</label>
+                                @Html.PasswordFor(m => m.password, new { @id = "txtpasword", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <input type="submit" value="Login" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    }
