@@ -133,6 +133,7 @@
     <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccesosController.cs" />
     <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\CategoriaProductoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
@@ -154,7 +155,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\acceso.cs">
+    <Compile Include="Models\accesos.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BD_GASISW.Context.cs">
@@ -499,6 +500,11 @@
     <Content Include="Views\Caja\Create.cshtml" />
     <Content Include="Views\Caja\Edit.cshtml" />
     <Content Include="Views\Caja\Delete.cshtml" />
+    <Content Include="Views\Accesos\Index.cshtml" />
+    <Content Include="Views\Accesos\Details.cshtml" />
+    <Content Include="Views\Accesos\Create.cshtml" />
+    <Content Include="Views\Accesos\Edit.cshtml" />
+    <Content Include="Views\Accesos\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

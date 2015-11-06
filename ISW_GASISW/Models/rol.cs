@@ -16,14 +16,14 @@ namespace ISW_GASISW.Models
     {
         public rol()
         {
-            this.acceso = new HashSet<acceso>();
             this.usuario = new HashSet<usuario>();
+            this.accesos = new HashSet<accesos>();
         }
     
         public long id { get; set; }
         public string nombre { get; set; }
     
-        public virtual ICollection<acceso> acceso { get; set; }
         public virtual ICollection<usuario> usuario { get; set; }
+        public virtual ICollection<accesos> accesos { get; set; }
     }
 }

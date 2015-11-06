@@ -12,12 +12,12 @@ namespace ISW_GASISW.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class acceso
+    public partial class accesos
     {
-        public long idROL { get; set; }
-        public long ROL_id { get; set; }
+        public long id { get; set; }
         public long FORMULARIOS_id { get; set; }
         public long PERMISOS_id { get; set; }
+        public long ROL_id { get; set; }
     
         public virtual formularios formularios { get; set; }
         public virtual permisos permisos { get; set; }

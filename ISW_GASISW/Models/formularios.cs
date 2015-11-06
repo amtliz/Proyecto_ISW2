@@ -16,13 +16,13 @@ namespace ISW_GASISW.Models
     {
         public formularios()
         {
-            this.acceso = new HashSet<acceso>();
+            this.accesos = new HashSet<accesos>();
         }
     
         public long id { get; set; }
         public string nombre { get; set; }
         public string url { get; set; }
     
-        public virtual ICollection<acceso> acceso { get; set; }
+        public virtual ICollection<accesos> accesos { get; set; }
     }
 }

@@ -1,0 +1,63 @@
+﻿@model ISW_GASISW.Models.accesos
+
+@{
+    ViewBag.Title = "Asignar Permisos a Rol";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Asignar Permisos a Rol
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="container">
+                <fieldset>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Rol
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("ROL_id", String.Empty)
+                            @Html.ValidationMessageFor(model => model.ROL_id)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Area de Acceso
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("FORMULARIOS_id", String.Empty)
+                            @Html.ValidationMessageFor(model => model.FORMULARIOS_id)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            Permisos de Acceso
+                        </div>
+                        <div class="editor-field">
+                            @Html.DropDownList("PERMISOS_id", String.Empty)
+                            @Html.ValidationMessageFor(model => model.PERMISOS_id)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            <input type="submit" class="btn btn-primary" value="Crear" />
+                            <div class="btn btn-default">
+                                @Html.ActionLink("Regresar", "Index")
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

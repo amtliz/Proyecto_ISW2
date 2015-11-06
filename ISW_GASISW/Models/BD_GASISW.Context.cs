@@ -25,7 +25,6 @@ namespace ISW_GASISW.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<acceso> acceso { get; set; }
         public DbSet<caja> caja { get; set; }
         public DbSet<categoria_producto> categoria_producto { get; set; }
         public DbSet<cliente> cliente { get; set; }
@@ -60,5 +59,6 @@ namespace ISW_GASISW.Models
         public DbSet<tipo_facturacion> tipo_facturacion { get; set; }
         public DbSet<tipo_movimiento> tipo_movimiento { get; set; }
         public DbSet<usuario> usuario { get; set; }
+        public DbSet<accesos> accesos { get; set; }
     }
 }

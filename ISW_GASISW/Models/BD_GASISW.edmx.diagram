@@ -5,7 +5,6 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="67bb05098cb44f07a9a11e236611384c" Name="Diagram1">
-        <EntityTypeShape EntityType="gasiswModel.acceso" Width="1.5" PointX="9" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gasiswModel.caja" Width="1.5" PointX="10.5" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="gasiswModel.categoria_producto" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="gasiswModel.cliente" Width="1.5" PointX="8.25" PointY="20.75" IsExpanded="true" />
@@ -40,9 +39,6 @@
         <EntityTypeShape EntityType="gasiswModel.tipo_facturacion" Width="1.5" PointX="8.25" PointY="30.875" IsExpanded="true" />
         <EntityTypeShape EntityType="gasiswModel.tipo_movimiento" Width="1.5" PointX="10.5" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="gasiswModel.usuario" Width="1.5" PointX="9" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="gasiswModel.fk_ROL_FORMULARIO_FORMULARIOS1" ManuallyRouted="false" />
-        <AssociationConnector Association="gasiswModel.fk_ROL_FORMULARIO_PERMISOS1" ManuallyRouted="false" />
-        <AssociationConnector Association="gasiswModel.fk_ROL_FORMULARIO_ROL1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_CAJA_SUCURSAL1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_HISTORIAL_CAJA_CAJA1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_MOVIEMENTOS_CAJA_CAJA1" ManuallyRouted="false" />
@@ -87,6 +83,10 @@
         <AssociationConnector Association="gasiswModel.fk_SUCURSAL_MUNICIPIO1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_PRODUCTO_PRESENTACION_PRODUCTO" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_USUARIO_ROL1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="gasiswModel.accesos" Width="1.5" PointX="11" PointY="30.5" />
+        <AssociationConnector Association="gasiswModel.fk_ACCESOS_FORMULARIOS1" />
+        <AssociationConnector Association="gasiswModel.fk_ACCESOS_PERMISOS1" />
+        <AssociationConnector Association="gasiswModel.fk_ACCESOS_ROL1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

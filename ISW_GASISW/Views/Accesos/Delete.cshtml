@@ -1,0 +1,53 @@
+﻿@model ISW_GASISW.Models.accesos
+
+@{
+    ViewBag.Title = "Eliminar - Permisos Asignados a Rol";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Eliminar - Permisos Asignados a Rol
+        </div>
+    </div>
+    <div class="panel-body">
+        <h3>Esta seguro que desea eliminar estos Permisos Asignados a Este Rol?</h3>
+        <fieldset>
+            <div class="form-group">
+                <div class="editor-label">
+                    Rol
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.rol.nombre)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Area de Acceso
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.formularios.nombre)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="editor-label">
+                    Permisos de Acceso
+                </div>
+                <div class="display-field">
+                    @Html.DisplayFor(model => model.permisos.nombre)
+                </div>
+            </div>
+
+        </fieldset>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <input type="submit" value="Eliminar" class="btn btn-primary" />
+                <div class="btn btn-default">
+                    @Html.ActionLink("Regresar", "Index")
+                </div>
+            </div>
+        }
+    </div>
+</div>

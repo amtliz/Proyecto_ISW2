@@ -4,15 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="gasiswModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="acceso">
+    <Schema Namespace="gasiswModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="accesos">
           <Key>
-            <PropertyRef Name="idROL" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="idROL" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ROL_id" Type="uint" Nullable="false" />
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FORMULARIOS_id" Type="uint" Nullable="false" />
           <Property Name="PERMISOS_id" Type="uint" Nullable="false" />
+          <Property Name="ROL_id" Type="uint" Nullable="false" />
         </EntityType>
         <EntityType Name="caja">
           <Key>
@@ -339,6 +339,42 @@
           <Property Name="ROL_id" Type="uint" Nullable="false" />
           <Property Name="EMPLEADO_id" Type="uint" Nullable="false" />
         </EntityType>
+        <Association Name="fk_ACCESOS_FORMULARIOS1">
+          <End Role="formularios" Type="Self.formularios" Multiplicity="1" />
+          <End Role="accesos" Type="Self.accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formularios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="accesos">
+              <PropertyRef Name="FORMULARIOS_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ACCESOS_PERMISOS1">
+          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
+          <End Role="accesos" Type="Self.accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permisos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="accesos">
+              <PropertyRef Name="PERMISOS_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ACCESOS_ROL1">
+          <End Role="rol" Type="Self.rol" Multiplicity="1" />
+          <End Role="accesos" Type="Self.accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="accesos">
+              <PropertyRef Name="ROL_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_CAJA_SUCURSAL1">
           <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
           <End Role="caja" Type="Self.caja" Multiplicity="*" />
@@ -831,42 +867,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_ROL_FORMULARIO_FORMULARIOS1">
-          <End Role="formularios" Type="Self.formularios" Multiplicity="1" />
-          <End Role="acceso" Type="Self.acceso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="formularios">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="acceso">
-              <PropertyRef Name="FORMULARIOS_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ROL_FORMULARIO_PERMISOS1">
-          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
-          <End Role="acceso" Type="Self.acceso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="permisos">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="acceso">
-              <PropertyRef Name="PERMISOS_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ROL_FORMULARIO_ROL1">
-          <End Role="rol" Type="Self.rol" Multiplicity="1" />
-          <End Role="acceso" Type="Self.acceso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rol">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="acceso">
-              <PropertyRef Name="ROL_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_SUCURSAL_MUNICIPIO1">
           <End Role="municipio" Type="Self.municipio" Multiplicity="1" />
           <End Role="sucursal" Type="Self.sucursal" Multiplicity="*" />
@@ -904,7 +904,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="gasiswModelStoreContainer">
-          <EntitySet Name="acceso" EntityType="Self.acceso" Schema="gasisw" store:Type="Tables" />
+          <EntitySet Name="accesos" EntityType="Self.accesos" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="caja" EntityType="Self.caja" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="categoria_producto" EntityType="Self.categoria_producto" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="gasisw" store:Type="Tables" />
@@ -939,6 +939,18 @@
           <EntitySet Name="tipo_facturacion" EntityType="Self.tipo_facturacion" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="tipo_movimiento" EntityType="Self.tipo_movimiento" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="usuario" EntityType="Self.usuario" Schema="gasisw" store:Type="Tables" />
+          <AssociationSet Name="fk_ACCESOS_FORMULARIOS1" Association="Self.fk_ACCESOS_FORMULARIOS1">
+            <End Role="formularios" EntitySet="formularios" />
+            <End Role="accesos" EntitySet="accesos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ACCESOS_PERMISOS1" Association="Self.fk_ACCESOS_PERMISOS1">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="accesos" EntitySet="accesos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ACCESOS_ROL1" Association="Self.fk_ACCESOS_ROL1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="accesos" EntitySet="accesos" />
+          </AssociationSet>
           <AssociationSet Name="fk_CAJA_SUCURSAL1" Association="Self.fk_CAJA_SUCURSAL1">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="caja" EntitySet="caja" />
@@ -1103,18 +1115,6 @@
             <End Role="municipio" EntitySet="municipio" />
             <End Role="proveedor" EntitySet="proveedor" />
           </AssociationSet>
-          <AssociationSet Name="fk_ROL_FORMULARIO_FORMULARIOS1" Association="Self.fk_ROL_FORMULARIO_FORMULARIOS1">
-            <End Role="formularios" EntitySet="formularios" />
-            <End Role="acceso" EntitySet="acceso" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ROL_FORMULARIO_PERMISOS1" Association="Self.fk_ROL_FORMULARIO_PERMISOS1">
-            <End Role="permisos" EntitySet="permisos" />
-            <End Role="acceso" EntitySet="acceso" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ROL_FORMULARIO_ROL1" Association="Self.fk_ROL_FORMULARIO_ROL1">
-            <End Role="rol" EntitySet="rol" />
-            <End Role="acceso" EntitySet="acceso" />
-          </AssociationSet>
           <AssociationSet Name="fk_SUCURSAL_MUNICIPIO1" Association="Self.fk_SUCURSAL_MUNICIPIO1">
             <End Role="municipio" EntitySet="municipio" />
             <End Role="sucursal" EntitySet="sucursal" />
@@ -1128,23 +1128,10 @@
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="gasiswModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="acceso">
-          <Key>
-            <PropertyRef Name="idROL" />
-          </Key>
-          <Property Name="idROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ROL_id" Type="Int64" Nullable="false" />
-          <Property Name="FORMULARIOS_id" Type="Int64" Nullable="false" />
-          <Property Name="PERMISOS_id" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="formularios" Relationship="Self.fk_ROL_FORMULARIO_FORMULARIOS1" FromRole="acceso" ToRole="formularios" />
-          <NavigationProperty Name="permisos" Relationship="Self.fk_ROL_FORMULARIO_PERMISOS1" FromRole="acceso" ToRole="permisos" />
-          <NavigationProperty Name="rol" Relationship="Self.fk_ROL_FORMULARIO_ROL1" FromRole="acceso" ToRole="rol" />
-        </EntityType>
         <EntityType Name="caja">
           <Key>
             <PropertyRef Name="id" />
@@ -1270,7 +1257,7 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="url" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="acceso" Relationship="Self.fk_ROL_FORMULARIO_FORMULARIOS1" FromRole="formularios" ToRole="acceso" />
+          <NavigationProperty Name="accesos" Relationship="gasiswModel.fk_ACCESOS_FORMULARIOS1" FromRole="formularios" ToRole="accesos" />
         </EntityType>
         <EntityType Name="historial_caja">
           <Key>
@@ -1443,7 +1430,7 @@
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="url" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="acceso" Relationship="Self.fk_ROL_FORMULARIO_PERMISOS1" FromRole="permisos" ToRole="acceso" />
+          <NavigationProperty Name="accesos" Relationship="gasiswModel.fk_ACCESOS_PERMISOS1" FromRole="permisos" ToRole="accesos" />
         </EntityType>
         <EntityType Name="presentacion_producto">
           <Key>
@@ -1492,8 +1479,8 @@
           </Key>
           <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="acceso" Relationship="Self.fk_ROL_FORMULARIO_ROL1" FromRole="rol" ToRole="acceso" />
           <NavigationProperty Name="usuario" Relationship="Self.fk_USUARIO_ROL1" FromRole="rol" ToRole="usuario" />
+          <NavigationProperty Name="accesos" Relationship="gasiswModel.fk_ACCESOS_ROL1" FromRole="rol" ToRole="accesos" />
         </EntityType>
         <EntityType Name="seccion_bodega">
           <Key>
@@ -1561,42 +1548,6 @@
           <NavigationProperty Name="empleado" Relationship="Self.fk_USUARIO_EMPLEADO1" FromRole="usuario" ToRole="empleado" />
           <NavigationProperty Name="rol" Relationship="Self.fk_USUARIO_ROL1" FromRole="usuario" ToRole="rol" />
         </EntityType>
-        <Association Name="fk_ROL_FORMULARIO_FORMULARIOS1">
-          <End Role="formularios" Type="Self.formularios" Multiplicity="1" />
-          <End Role="acceso" Type="Self.acceso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="formularios">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="acceso">
-              <PropertyRef Name="FORMULARIOS_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ROL_FORMULARIO_PERMISOS1">
-          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
-          <End Role="acceso" Type="Self.acceso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="permisos">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="acceso">
-              <PropertyRef Name="PERMISOS_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_ROL_FORMULARIO_ROL1">
-          <End Role="rol" Type="Self.rol" Multiplicity="1" />
-          <End Role="acceso" Type="Self.acceso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="rol">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="acceso">
-              <PropertyRef Name="ROL_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_CAJA_SUCURSAL1">
           <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
           <End Role="caja" Type="Self.caja" Multiplicity="*" />
@@ -2126,7 +2077,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="gasiswEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="acceso" EntityType="Self.acceso" />
           <EntitySet Name="caja" EntityType="Self.caja" />
           <EntitySet Name="categoria_producto" EntityType="Self.categoria_producto" />
           <EntitySet Name="cliente" EntityType="Self.cliente" />
@@ -2161,18 +2111,6 @@
           <EntitySet Name="tipo_facturacion" EntityType="Self.tipo_facturacion" />
           <EntitySet Name="tipo_movimiento" EntityType="Self.tipo_movimiento" />
           <EntitySet Name="usuario" EntityType="Self.usuario" />
-          <AssociationSet Name="fk_ROL_FORMULARIO_FORMULARIOS1" Association="Self.fk_ROL_FORMULARIO_FORMULARIOS1">
-            <End Role="formularios" EntitySet="formularios" />
-            <End Role="acceso" EntitySet="acceso" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ROL_FORMULARIO_PERMISOS1" Association="Self.fk_ROL_FORMULARIO_PERMISOS1">
-            <End Role="permisos" EntitySet="permisos" />
-            <End Role="acceso" EntitySet="acceso" />
-          </AssociationSet>
-          <AssociationSet Name="fk_ROL_FORMULARIO_ROL1" Association="Self.fk_ROL_FORMULARIO_ROL1">
-            <End Role="rol" EntitySet="rol" />
-            <End Role="acceso" EntitySet="acceso" />
-          </AssociationSet>
           <AssociationSet Name="fk_CAJA_SUCURSAL1" Association="Self.fk_CAJA_SUCURSAL1">
             <End Role="sucursal" EntitySet="sucursal" />
             <End Role="caja" EntitySet="caja" />
@@ -2349,23 +2287,74 @@
             <End Role="rol" EntitySet="rol" />
             <End Role="usuario" EntitySet="usuario" />
           </AssociationSet>
+          <EntitySet Name="accesos" EntityType="gasiswModel.accesos" />
+          <AssociationSet Name="fk_ACCESOS_FORMULARIOS1" Association="gasiswModel.fk_ACCESOS_FORMULARIOS1">
+            <End Role="formularios" EntitySet="formularios" />
+            <End Role="accesos" EntitySet="accesos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ACCESOS_PERMISOS1" Association="gasiswModel.fk_ACCESOS_PERMISOS1">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="accesos" EntitySet="accesos" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ACCESOS_ROL1" Association="gasiswModel.fk_ACCESOS_ROL1">
+            <End Role="rol" EntitySet="rol" />
+            <End Role="accesos" EntitySet="accesos" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="accesos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FORMULARIOS_id" Type="Int64" Nullable="false" />
+          <Property Name="PERMISOS_id" Type="Int64" Nullable="false" />
+          <Property Name="ROL_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="formularios" Relationship="gasiswModel.fk_ACCESOS_FORMULARIOS1" FromRole="accesos" ToRole="formularios" />
+          <NavigationProperty Name="permisos" Relationship="gasiswModel.fk_ACCESOS_PERMISOS1" FromRole="accesos" ToRole="permisos" />
+          <NavigationProperty Name="rol" Relationship="gasiswModel.fk_ACCESOS_ROL1" FromRole="accesos" ToRole="rol" />
+        </EntityType>
+        <Association Name="fk_ACCESOS_FORMULARIOS1">
+          <End Type="gasiswModel.formularios" Role="formularios" Multiplicity="1" />
+          <End Type="gasiswModel.accesos" Role="accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formularios">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="accesos">
+              <PropertyRef Name="FORMULARIOS_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ACCESOS_PERMISOS1">
+          <End Type="gasiswModel.permisos" Role="permisos" Multiplicity="1" />
+          <End Type="gasiswModel.accesos" Role="accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="permisos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="accesos">
+              <PropertyRef Name="PERMISOS_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ACCESOS_ROL1">
+          <End Type="gasiswModel.rol" Role="rol" Multiplicity="1" />
+          <End Type="gasiswModel.accesos" Role="accesos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="rol">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="accesos">
+              <PropertyRef Name="ROL_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="gasiswModelStoreContainer" CdmEntityContainer="gasiswEntities">
-          <EntitySetMapping Name="acceso">
-            <EntityTypeMapping TypeName="gasiswModel.acceso">
-              <MappingFragment StoreEntitySet="acceso">
-                <ScalarProperty Name="idROL" ColumnName="idROL" />
-                <ScalarProperty Name="ROL_id" ColumnName="ROL_id" />
-                <ScalarProperty Name="FORMULARIOS_id" ColumnName="FORMULARIOS_id" />
-                <ScalarProperty Name="PERMISOS_id" ColumnName="PERMISOS_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="caja">
             <EntityTypeMapping TypeName="gasiswModel.caja">
               <MappingFragment StoreEntitySet="caja">
@@ -2722,6 +2711,16 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="ROL_id" ColumnName="ROL_id" />
                 <ScalarProperty Name="EMPLEADO_id" ColumnName="EMPLEADO_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="accesos">
+            <EntityTypeMapping TypeName="gasiswModel.accesos">
+              <MappingFragment StoreEntitySet="accesos">
+                <ScalarProperty Name="ROL_id" ColumnName="ROL_id" />
+                <ScalarProperty Name="PERMISOS_id" ColumnName="PERMISOS_id" />
+                <ScalarProperty Name="FORMULARIOS_id" ColumnName="FORMULARIOS_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
