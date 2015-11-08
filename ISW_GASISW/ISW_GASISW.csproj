@@ -151,6 +151,7 @@
     <Compile Include="Controllers\ProveedorController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SeccionBodegaController.cs" />
+    <Compile Include="Controllers\Seguridad.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Controllers\TipoCompraController.cs" />
     <Compile Include="Controllers\TipoFacturacionController.cs" />

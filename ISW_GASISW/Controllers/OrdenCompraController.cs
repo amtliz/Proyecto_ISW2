@@ -24,7 +24,8 @@ namespace ISW_GASISW.Controllers
         public ActionResult Create()
         {
             ViewBag.PROVEEDOR_id = new SelectList(db.proveedor, "id", "nombre");
-            return View();
+            var lstProducto = new List<producto>(db.producto);
+            return View(lstProducto);
         }
 
     }

@@ -12,14 +12,23 @@ namespace ISW_GASISW.Controllers
     public class ClienteController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
-
+        Seguridad SEG = new Seguridad();
         //
         // GET: /Cliente/
 
         public ActionResult Index()
         {
-            var cliente = db.cliente.Include(c => c.municipio);
-            return View(cliente.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Cliente", "Index");
+            if (Validacion)
+            {
+                var cliente = db.cliente.Include(c => c.municipio);
+                return View(cliente.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
