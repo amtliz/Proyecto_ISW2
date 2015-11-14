@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\CategoriaProductoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\C_Arduino.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\D_ORDEN_COMPRAController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Controllers\SeccionBodegaController.cs" />
     <Compile Include="Controllers\Seguridad.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
+    <Compile Include="Controllers\TestBombaController.cs" />
     <Compile Include="Controllers\TipoCompraController.cs" />
     <Compile Include="Controllers\TipoFacturacionController.cs" />
     <Compile Include="Controllers\TipoMovimientoCajaController.cs" />
@@ -525,6 +527,7 @@
     <Content Include="Views\Producto2\Create.cshtml" />
     <Content Include="Views\Producto2\Edit.cshtml" />
     <Content Include="Views\Producto2\Delete.cshtml" />
+    <Content Include="Views\TestBomba\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
