@@ -237,6 +237,7 @@
     <Compile Include="Models\m_orden_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\M_PeticionArduino.cs" />
     <Compile Include="Models\m_venta.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>

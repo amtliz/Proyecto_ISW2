@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ISW_GASISW.Models;
 
 namespace ISW_GASISW.Controllers
 {
@@ -15,9 +16,16 @@ namespace ISW_GASISW.Controllers
         // GET: /TestBomba/
         public ActionResult Index()
         {
-            CARD.Test();
             return View();
         }
 
+        //
+        // POST: /TestBomba/
+        [HttpPost]
+        public ActionResult Index(M_PeticionArduino MPA)
+        {
+            CARD.Test2(MPA);
+            return View(MPA);
+        }
     }
 }
