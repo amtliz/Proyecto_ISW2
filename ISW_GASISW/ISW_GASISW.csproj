@@ -234,6 +234,7 @@
     <Compile Include="Models\m_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\M_M_Orden_Compra.cs" />
     <Compile Include="Models\m_orden_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>

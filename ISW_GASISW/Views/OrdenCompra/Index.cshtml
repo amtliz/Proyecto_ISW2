@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ISW_GASISW.Models.M_M_Orden_Compra
+@{
     ViewBag.Title = "Procesos - Orden de Compra";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -6,16 +7,30 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
-            Crear - Orden de Compra
+            Procesos - Orden de Compra
         </div>
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-lg-2">
-                <div class="btn btn-default linkBlanco">
-                    @Html.ActionLink("Crear Nuevo", "Create")
-                </div>
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @using (@Html.BeginForm())
+                        {
+                            <h5 class="text-primary">Hacer Orden de compra</h5>
+                            <div class="form-group">
+                                <label for="Proveedor_id" class="col-lg-2 control-label">Proveedor</label>
+                                <div class="col-lg-4">
+                                    @Html.DropDownListFor(m => m.proveedor, (IEnumerable<SelectListItem>)ViewBag.PROVEEDOR_id, new { @class = "dropdown" })
+                                </div>
+                                <input type="submit" id="New" value="Nueva Orden" class="btn btn-primary" />
+                            </div>
+                        }
+                    </div>
+                </div>                
             </div>
+        </div>
+        <div class="row">
             <div class="col-lg-4 col-lg-offset-2">
                 <div class="form-group">
                     <div class="input-group">
