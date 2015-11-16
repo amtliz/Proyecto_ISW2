@@ -47,11 +47,52 @@ namespace ISW_GASISW.Controllers
         public ActionResult Create()
         {
             int Maestro = Convert.ToInt16(Session["M_O_C"]);
+            string cantidadDefault = "0";
             int proveedor = Convert.ToInt16(db.m_orden_compra.Where(x => x.id == Maestro).Select(X => X.PROVEEDOR_id).Single());
+            List<d_orden_compra> LDOC = new List<d_orden_compra>();
             List<producto> Producto = db.producto.Include(p => p.categoria_producto).Include(p => p.presentacion_producto).Where(x => x.PROVEEDOR_id == proveedor).ToList();
-            ViewBag.PRODUCTO = Producto;
-            return View();
+            foreach (var prod in Producto)
+            {
+                d_orden_compra DOC = new d_orden_compra();
+                DOC.M_ORDEN_COMPRA_id = Maestro;
+                DOC.producto = prod;
+                DOC.cantidad = cantidadDefault;
+
+                LDOC.Add(DOC);
+            }
+            M_D_Orden_Compra MDOC = new M_D_Orden_Compra();
+            MDOC.Lista = LDOC;
+
+            return View(MDOC);
         }
 
+        //
+        // POST: /OrdenCompra/Create
+        [HttpPost]
+        public ActionResult Create(M_D_Orden_Compra MDOC)
+        {
+            //Obteniendo el valor del Master
+            int Maestro = Convert.ToInt16(Session["M_O_C"]);
+            //recorriendo Arrays
+            for (int i = 0; i < MDOC.Cant.Count(); i++)
+            {
+                //Obtener Valores de la clase
+                string cantidad = MDOC.Cant[i];
+                string producto = MDOC.id[i];
+                if (cantidad != "")
+                {
+                    d_orden_compra DOC = new d_orden_compra();
+                    DOC.M_ORDEN_COMPRA_id = Maestro;
+                    DOC.PRODUCTO_id = Convert.ToInt16(producto);
+                    DOC.cantidad = cantidad;
+
+                    db.d_orden_compra.Add(DOC);
+                    db.SaveChanges();
+                }
+            }
+
+            Session["M_O_C"] = null;
+            return RedirectToAction("Index");
+        }
     }
 }
