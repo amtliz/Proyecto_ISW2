@@ -43,25 +43,91 @@
         <br />
         <div class="container table-responsive toggle-circle-filled">
             <div class="col-lg-11">
-                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="3">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" @*data-page-size="3"*@>
                     <thead>
                         <tr>
-                            <th>Debo LLenar esto</th>
-                            <th data-sort-ignore="true"></th>
+                            <th>#</th>
+                            <th>Fecha de Emision</th>
+                            <th>Emitida Por</th>
+                            <th>Al Proveedor</th>
+                            <th>Estado</th>
+                            <th data-hide="all">Detalles</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach (var item in Model.LMOC)
+                        {
+                            <tr>
+                                <td>
+                                   @item.id
+                                </td>
+                                <td>
+                                    @item.fecha_emitida                                
+                                </td>
+                                <td>
+                                    @item.empleado.nombre1
+                                </td>
+                                <td>
+                                    @item.proveedor.nombre
+                                </td>
+                                <td>
+                                    @item.estado
+                                </td>
+                                <td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th hidden="hidden">
+                                                    ID Producto
+                                                </th>
+                                                <th>
+                                                    Producto
+                                                </th>
+                                                <th>
+                                                    Presentacion
+                                                </th>
+                                                <th>
+                                                    Categoria
+                                                </th>
+                                                <th>
+                                                    Cantidad
+                                                </th>
+                                            </tr>
+                                        </thead> 
+                                        <tbody>
+                                            @foreach (var item2 in item.d_orden_compra)
+                                            {
+                                                <tr>
+                                                        <td hidden="hidden">
+                                                            @item2.id
+                                                        </td>
+                                                        <td>
+                                                            @item2.producto.nombre
+                                                        </td>
+                                                        <td>
+                                                            @item2.producto.presentacion_producto.nombre
+                                                        </td>
+                                                        <td>
+                                                            @item2.producto.categoria_producto.nombre
+                                                        </td>
+                                                        <td>
+                                                            @item2.cantidad
+                                                        </td>
+                                                </tr>
+                                            }                                           
+                                        </tbody>                                        
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    @*<tfoot>
                         <tr>
-                            <td>Debo llenar esto</td>
-                            <td>
-                                <ul class="nav nav-pills">
-                                    <li role="presentation">@Html.ActionLink("Editar", "Edit")</li>
-                                    <li role="presentation">@Html.ActionLink("Detalles", "Details")</li>
-                                    <li role="presentation">@Html.ActionLink("Eliminar", "Delete")</li>
-                                </ul>
+                            <td colspan="6">
+                                <div class="pagination pagination-centered hide-if-no-paging"></div>
                             </td>
                         </tr>
-                    </tbody>
+                    </tfoot>*@
                 </table>
             </div>
         </div>
