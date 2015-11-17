@@ -18,8 +18,7 @@ namespace ISW_GASISW.Controllers
         public ActionResult Index()
         {
             Session["M_O_C"] = null;
-            ViewBag.PROVEEDOR_id = new SelectList(db.proveedor, "id", "nombre");
-            //Provando 
+            ViewBag.PROVEEDOR_id = new SelectList(db.proveedor, "id", "nombre"); 
             var Lista = db.d_orden_compra.Select(p => p.m_orden_compra.id).Take(1);
             List<m_orden_compra> Lista2 = db.m_orden_compra.Include(p => p.d_orden_compra).Where(p => Lista.Contains(p.id)).ToList();
             M_M_Orden_Compra MMOC = new M_M_Orden_Compra();

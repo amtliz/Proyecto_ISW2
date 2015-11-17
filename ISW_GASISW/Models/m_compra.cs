@@ -26,11 +26,9 @@ namespace ISW_GASISW.Models
         public float total_compra { get; set; }
         public long EMPLEADO_id { get; set; }
         public long TIPO_COMPRA_id { get; set; }
-        public long M_ORDEN_COMPRA_id { get; set; }
     
         public virtual ICollection<d_compra> d_compra { get; set; }
         public virtual empleado empleado { get; set; }
-        public virtual m_orden_compra m_orden_compra { get; set; }
         public virtual proveedor proveedor { get; set; }
         public virtual tipo_compra tipo_compra { get; set; }
         public virtual ICollection<nota_credito_compra> nota_credito_compra { get; set; }

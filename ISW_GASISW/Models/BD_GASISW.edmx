@@ -168,7 +168,6 @@
           <Property Name="total_compra" Type="float" Nullable="false" />
           <Property Name="EMPLEADO_id" Type="uint" Nullable="false" />
           <Property Name="TIPO_COMPRA_id" Type="uint" Nullable="false" />
-          <Property Name="M_ORDEN_COMPRA_id" Type="uint" Nullable="false" />
         </EntityType>
         <EntityType Name="m_orden_compra">
           <Key>
@@ -177,7 +176,7 @@
           <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fecha_emitida" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="emitido_EMPLEADO_id" Type="uint" Nullable="false" />
-          <Property Name="estado" Type="bool" Nullable="false" />
+          <Property Name="estado" Type="bit" />
           <Property Name="aprobado_EMPLEADO_id" Type="uint" />
           <Property Name="PROVEEDOR_id" Type="uint" Nullable="false" />
         </EntityType>
@@ -664,18 +663,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_M_COMPRA_M_ORDEN_COMPRA1">
-          <End Role="m_orden_compra" Type="Self.m_orden_compra" Multiplicity="1" />
-          <End Role="m_compra" Type="Self.m_compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="m_orden_compra">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="m_compra">
-              <PropertyRef Name="M_ORDEN_COMPRA_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_M_COMPRA_PROVEEDOR1">
           <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
           <End Role="m_compra" Type="Self.m_compra" Multiplicity="*" />
@@ -1060,10 +1047,6 @@
             <End Role="empleado" EntitySet="empleado" />
             <End Role="m_compra" EntitySet="m_compra" />
           </AssociationSet>
-          <AssociationSet Name="fk_M_COMPRA_M_ORDEN_COMPRA1" Association="Self.fk_M_COMPRA_M_ORDEN_COMPRA1">
-            <End Role="m_orden_compra" EntitySet="m_orden_compra" />
-            <End Role="m_compra" EntitySet="m_compra" />
-          </AssociationSet>
           <AssociationSet Name="fk_M_COMPRA_PROVEEDOR1" Association="Self.fk_M_COMPRA_PROVEEDOR1">
             <End Role="proveedor" EntitySet="proveedor" />
             <End Role="m_compra" EntitySet="m_compra" />
@@ -1340,10 +1323,8 @@
           <Property Name="total_compra" Type="Single" Nullable="false" />
           <Property Name="EMPLEADO_id" Type="Int64" Nullable="false" />
           <Property Name="TIPO_COMPRA_id" Type="Int64" Nullable="false" />
-          <Property Name="M_ORDEN_COMPRA_id" Type="Int64" Nullable="false" />
           <NavigationProperty Name="d_compra" Relationship="Self.fk_D_COMPRA_M_COMPRA1" FromRole="m_compra" ToRole="d_compra" />
           <NavigationProperty Name="empleado" Relationship="Self.fk_M_COMPRA_EMPLEADO1" FromRole="m_compra" ToRole="empleado" />
-          <NavigationProperty Name="m_orden_compra" Relationship="Self.fk_M_COMPRA_M_ORDEN_COMPRA1" FromRole="m_compra" ToRole="m_orden_compra" />
           <NavigationProperty Name="proveedor" Relationship="Self.fk_M_COMPRA_PROVEEDOR1" FromRole="m_compra" ToRole="proveedor" />
           <NavigationProperty Name="tipo_compra" Relationship="Self.fk_M_COMPRA_TIPO_COMPRA1" FromRole="m_compra" ToRole="tipo_compra" />
           <NavigationProperty Name="nota_credito_compra" Relationship="Self.fk_NOTA_CREDITO_COMPRA_M_COMPRA1" FromRole="m_compra" ToRole="nota_credito_compra" />
@@ -1361,7 +1342,6 @@
           <NavigationProperty Name="d_orden_compra" Relationship="Self.fk_D_ORDEN_COMPRA_M_ORDEN_COMPRA1" FromRole="m_orden_compra" ToRole="d_orden_compra" />
           <NavigationProperty Name="empleado" Relationship="Self.fk_ORDEN_COMPRA_EMPLEADO1" FromRole="m_orden_compra" ToRole="empleado" />
           <NavigationProperty Name="empleado1" Relationship="Self.fk_ORDEN_COMPRA_EMPLEADO2" FromRole="m_orden_compra" ToRole="empleado" />
-          <NavigationProperty Name="m_compra" Relationship="Self.fk_M_COMPRA_M_ORDEN_COMPRA1" FromRole="m_orden_compra" ToRole="m_compra" />
           <NavigationProperty Name="proveedor" Relationship="Self.fk_M_ORDEN_COMPRA_PROVEEDOR1" FromRole="m_orden_compra" ToRole="proveedor" />
         </EntityType>
         <EntityType Name="m_venta">
@@ -1860,18 +1840,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_M_COMPRA_M_ORDEN_COMPRA1">
-          <End Role="m_orden_compra" Type="Self.m_orden_compra" Multiplicity="1" />
-          <End Role="m_compra" Type="Self.m_compra" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="m_orden_compra">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="m_compra">
-              <PropertyRef Name="M_ORDEN_COMPRA_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_M_COMPRA_PROVEEDOR1">
           <End Role="proveedor" Type="Self.proveedor" Multiplicity="1" />
           <End Role="m_compra" Type="Self.m_compra" Multiplicity="*" />
@@ -2129,10 +2097,6 @@
           <AssociationSet Name="fk_LOTE_SECCION_BODEGA1" Association="Self.fk_LOTE_SECCION_BODEGA1">
             <End Role="seccion_bodega" EntitySet="seccion_bodega" />
             <End Role="lote" EntitySet="lote" />
-          </AssociationSet>
-          <AssociationSet Name="fk_M_COMPRA_M_ORDEN_COMPRA1" Association="Self.fk_M_COMPRA_M_ORDEN_COMPRA1">
-            <End Role="m_orden_compra" EntitySet="m_orden_compra" />
-            <End Role="m_compra" EntitySet="m_compra" />
           </AssociationSet>
           <AssociationSet Name="fk_M_COMPRA_PROVEEDOR1" Association="Self.fk_M_COMPRA_PROVEEDOR1">
             <End Role="proveedor" EntitySet="proveedor" />
@@ -2558,7 +2522,6 @@
                 <ScalarProperty Name="total_compra" ColumnName="total_compra" />
                 <ScalarProperty Name="EMPLEADO_id" ColumnName="EMPLEADO_id" />
                 <ScalarProperty Name="TIPO_COMPRA_id" ColumnName="TIPO_COMPRA_id" />
-                <ScalarProperty Name="M_ORDEN_COMPRA_id" ColumnName="M_ORDEN_COMPRA_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

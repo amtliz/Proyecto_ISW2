@@ -17,7 +17,6 @@ namespace ISW_GASISW.Models
         public m_orden_compra()
         {
             this.d_orden_compra = new HashSet<d_orden_compra>();
-            this.m_compra = new HashSet<m_compra>();
         }
     
         public long id { get; set; }
@@ -30,7 +29,6 @@ namespace ISW_GASISW.Models
         public virtual ICollection<d_orden_compra> d_orden_compra { get; set; }
         public virtual empleado empleado { get; set; }
         public virtual empleado empleado1 { get; set; }
-        public virtual ICollection<m_compra> m_compra { get; set; }
         public virtual proveedor proveedor { get; set; }
     }
 }

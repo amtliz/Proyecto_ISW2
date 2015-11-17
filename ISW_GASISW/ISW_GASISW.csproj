@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CajaController.cs" />
     <Compile Include="Controllers\CategoriaProductoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\CompraController.cs" />
     <Compile Include="Controllers\C_Arduino.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
@@ -232,7 +233,9 @@
     <Compile Include="Models\m_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\M_D_Compra.cs" />
     <Compile Include="Models\M_D_Orden_Compra.cs" />
+    <Compile Include="Models\M_M_Compra.cs" />
     <Compile Include="Models\M_M_Orden_Compra.cs" />
     <Compile Include="Models\m_orden_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
@@ -519,6 +522,8 @@
     <Content Include="Views\Producto2\Edit.cshtml" />
     <Content Include="Views\Producto2\Delete.cshtml" />
     <Content Include="Views\TestBomba\Index.cshtml" />
+    <Content Include="Views\Compra\Index.cshtml" />
+    <Content Include="Views\Compra\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

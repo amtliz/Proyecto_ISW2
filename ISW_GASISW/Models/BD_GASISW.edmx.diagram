@@ -64,7 +64,6 @@
         <AssociationConnector Association="gasiswModel.fk_KARDEX_LOTE1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_KARDEX_MOVIMIENTO1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_LOTE_SECCION_BODEGA1" ManuallyRouted="false" />
-        <AssociationConnector Association="gasiswModel.fk_M_COMPRA_M_ORDEN_COMPRA1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_M_COMPRA_PROVEEDOR1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_M_COMPRA_TIPO_COMPRA1" ManuallyRouted="false" />
         <AssociationConnector Association="gasiswModel.fk_NOTA_CREDITO_COMPRA_M_COMPRA1" ManuallyRouted="false" />
