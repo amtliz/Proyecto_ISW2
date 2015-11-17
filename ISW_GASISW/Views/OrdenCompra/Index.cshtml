@@ -52,6 +52,7 @@
                             <th>Al Proveedor</th>
                             <th>Estado</th>
                             <th data-hide="all">Detalles</th>
+                            <th data-sort-ignore="true"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,10 +60,10 @@
                         {
                             <tr>
                                 <td>
-                                   @item.id
+                                    @item.id
                                 </td>
                                 <td>
-                                    @item.fecha_emitida                                
+                                    @item.fecha_emitida
                                 </td>
                                 <td>
                                     @item.empleado.nombre1
@@ -70,9 +71,26 @@
                                 <td>
                                     @item.proveedor.nombre
                                 </td>
+                                @{
+                            if (item.aprobado_EMPLEADO_id == null)
+                            {
                                 <td>
-                                    @item.estado
+                                    Pendiente Aprobacion
                                 </td>
+                            }
+                            else if (item.estado == true)
+                            {
+                                <td>
+                                    Aprobado
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Denegado
+                                </td>
+                            }
+                                }
                                 <td>
                                     <table>
                                         <thead>
@@ -93,34 +111,52 @@
                                                     Cantidad
                                                 </th>
                                             </tr>
-                                        </thead> 
+                                        </thead>
                                         <tbody>
                                             @foreach (var item2 in item.d_orden_compra)
                                             {
                                                 <tr>
-                                                        <td hidden="hidden">
-                                                            @item2.id
-                                                        </td>
-                                                        <td>
-                                                            @item2.producto.nombre
-                                                        </td>
-                                                        <td>
-                                                            @item2.producto.presentacion_producto.nombre
-                                                        </td>
-                                                        <td>
-                                                            @item2.producto.categoria_producto.nombre
-                                                        </td>
-                                                        <td>
-                                                            @item2.cantidad
-                                                        </td>
+                                                    <td hidden="hidden">
+                                                        @item2.id
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.presentacion_producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.categoria_producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.cantidad
+                                                    </td>
                                                 </tr>
-                                            }                                           
-                                        </tbody>                                        
+                                            }
+                                        </tbody>
                                     </table>
                                 </td>
+
+                                @{
+                            if (item.aprobado_EMPLEADO_id == null)
+                            {
+                                <td>
+                                    <ul class="nav nav-pills">
+                                        <li role="presentation">@Html.ActionLink("Aprobar", "Aprobar", new { id = item.id })</li>
+                                        <li role="presentation">@Html.ActionLink("Denegar", "Denegar", new { id = item.id })</li>
+                                    </ul>
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                                }
+
                             </tr>
                         }
                     </tbody>
+
                     @*<tfoot>
                         <tr>
                             <td colspan="6">

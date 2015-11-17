@@ -99,5 +99,41 @@ namespace ISW_GASISW.Controllers
             Session["M_O_C"] = null;
             return RedirectToAction("Index");
         }
+
+        //
+        // GET: /OrdenCompra/Aprobar
+        public ActionResult Aprobar(long id = 0)
+        {
+            m_orden_compra MOC = db.m_orden_compra.Where(p => p.id == id).Select(p => p).Single();
+            MOC.estado = true;
+            MOC.aprobado_EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return RedirectToAction("Index");
+        }
+
+        //
+        // GET: /OrdenCompra/Denegar
+        public ActionResult Denegar(long id = 0)
+        {
+            m_orden_compra MOC = db.m_orden_compra.Where(p => p.id == id).Select(p => p).Single();
+            MOC.estado = false;
+            MOC.aprobado_EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
