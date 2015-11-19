@@ -17,7 +17,8 @@ namespace ISW_GASISW.Controllers
         // GET: /NotaCreditoCompra/
         public ActionResult Index()
         {
-            return View();
+            List<nota_credito_compra> LNCC = db.nota_credito_compra.ToList();
+            return View(LNCC);
         }
 
         //
@@ -50,6 +51,23 @@ namespace ISW_GASISW.Controllers
             db.SaveChanges();
 
             Session["M_C"] = null;
+            return RedirectToAction("Index");
+        }
+
+        //
+        // GET: /OrdenCompra/Aprobar
+        public ActionResult Pagar(long id = 0)
+        {
+            nota_credito_compra NCC = db.nota_credito_compra.Where(p => p.id == id).Select(p => p).Single();
+            NCC.fecha_paga = DateTime.Today;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
             return RedirectToAction("Index");
         }
     }

@@ -1,6 +1,139 @@
-﻿
-    ViewBag.Title = "Index";
+﻿@model IEnumerable<ISW_GASISW.Models.nota_credito_compra>
+@{
+    ViewBag.Title = "Procesos - Nota Credito Compra";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2></h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Procesos - Nota Credito Compra
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search fa-2x"></span></span>
+                        <input class="form-control input-lg" id="filter" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container table-responsive toggle-circle-filled">
+            <div class="col-lg-11">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="5">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Solicitado por</th>
+                            <th>Extendido por</th>
+                            <th>Fecha extendido</th>
+                            <th>Fin de plazo</th>
+                            <th data-hide="all">Por concepto de</th>
+                            <th data-hide="all">Por un total de</th>
+                            <th>Estado</th>
+                            <th data-hide="all">Pagada el</th>
+                            <th data-hide="all">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.id</td>
+                                <td>@item.m_compra.empleado.nombre1</td>
+                                <td>@item.m_compra.proveedor.nombre</td>
+                                <td>@item.fecha_extendido</td>
+                                <td>@item.plazo</td>
+                                <td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th>Presentacion</th>
+                                                <th>Categoria</th>
+                                                <th>Cantidad</th>
+                                                <th>Costo Unitario</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item2 in item.m_compra.d_compra)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @item2.producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.presentacion_producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.categoria_producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.cantidad_producto
+                                                    </td>
+                                                    <td>
+                                                        $ @item2.costo_unitario c/u
+                                                    </td>
+                                                    <td>
+                                                        $ @item2.total
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>$ @item.m_compra.total_compra</td>
+                                @{
+                            if (item.fecha_paga == null)
+                            {
+                                <td>Pendiente a pagar</td>
+                            }
+                            else
+                            {
+                                <td>Nota de Credito Pagada</td>
+                            }
+                                }
+                                @{
+                            if (item.fecha_paga == null)
+                            {
+                                <td>Sin Pagar</td>
+                            }
+                            else
+                            {
+                                <td>@item.fecha_paga</td>
+                            }
+                                }
+                                @{
+                            if (item.fecha_paga == null)
+                            {
+                                <td>
+                                    <ul class="nav nav-pills">
+                                        <li role="presentation">@Html.ActionLink("Pagar", "Pagar", new { id = item.id })</li>
+                                    </ul>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>Pagada</td>
+                            }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="10">
+                                <div class="pagination pagination-centered hide-if-no-paging"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
