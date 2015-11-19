@@ -75,7 +75,7 @@ namespace ISW_GASISW.Controllers
         }
 
         //
-        // POST: /OrdenCompra/Create
+        // POST: /Compra/Create
         [HttpPost]
         public ActionResult Create(M_D_Compra MDC)
         {

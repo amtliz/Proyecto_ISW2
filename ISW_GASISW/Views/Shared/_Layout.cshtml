@@ -11,6 +11,7 @@
     <link type="text/css" rel="stylesheet" href="~/Content/bootstrap_paper.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/footable.core.css" />
     <link type="text/css" rel="stylesheet" href="~/Content/footable.metro.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/bootstrap-datepicker.css" />
 </head>
 <body>
     <!-- Navegador Superior -->
@@ -167,6 +168,15 @@
     $(document).ready(function () {
         $("table").footable();
     });
+    </script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                startDate: '-3d'
+            });
+        });
     </script>
 </body>
 </html>

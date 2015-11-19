@@ -1,0 +1,114 @@
+﻿@model ISW_GASISW.Models.M_Nota_Credito_Compra
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Nueva - Nota de Credito Compra
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <b>Solicitado por: </b>@Html.DisplayTextFor(m => m.MC.empleado.nombre1)
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <b>Extendido por: </b>@Html.DisplayTextFor(m => m.MC.proveedor.nombre)
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <b>Fecha Extendido: </b>@Html.DisplayTextFor(m => m.MC.fecha_compra)
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <b>Pagar a mas tardar: </b>@Html.TextBoxFor(m => m.plazo, new { @class = "datepicker" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <b>Por Concepto de:</b>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="container table-responsive toggle-circle-filled">
+                        <div class="col-lg-11">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Producto
+                                        </th>
+                                        <th>
+                                            Presentacion
+                                        </th>
+                                        <th>
+                                            Categoria
+                                        </th>
+                                        <th>
+                                            Cantidad
+                                        </th>
+                                        <th>
+                                            Costo Unitario
+                                        </th>
+                                        <th>
+                                            Total
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item2 in Model.MC.d_compra)
+                                {
+                                <tr>
+                                    <td>
+                                        @item2.producto.nombre
+                                    </td>
+                                    <td>
+                                        @item2.producto.presentacion_producto.nombre
+                                    </td>
+                                    <td>
+                                        @item2.producto.categoria_producto.nombre
+                                    </td>
+                                    <td>
+                                        @item2.cantidad_producto
+                                    </td>
+                                    <td>
+                                        $ @item2.costo_unitario c/u
+                                    </td>
+                                    <td>
+                                        $ @item2.total
+                                    </td>
+                                </tr>
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="col-lg-12">
+                        <b>Dando un total de: </b>$ @Html.DisplayTextFor(m=>m.MC.total_compra)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

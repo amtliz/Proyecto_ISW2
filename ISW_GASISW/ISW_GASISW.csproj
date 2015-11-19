@@ -238,6 +238,7 @@
     <Compile Include="Models\M_D_Orden_Compra.cs" />
     <Compile Include="Models\M_M_Compra.cs" />
     <Compile Include="Models\M_M_Orden_Compra.cs" />
+    <Compile Include="Models\M_Nota_Credito_Compra.cs" />
     <Compile Include="Models\m_orden_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
@@ -290,6 +291,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker3.standalone.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -389,6 +394,7 @@
     <Content Include="Content\fonts\footable.ttf" />
     <Content Include="Content\fonts\footable.woff" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\footable.filter.js" />
@@ -526,6 +532,7 @@
     <Content Include="Views\Compra\Index.cshtml" />
     <Content Include="Views\Compra\Create.cshtml" />
     <Content Include="Views\NotaCreditoCompra\Index.cshtml" />
+    <Content Include="Views\NotaCreditoCompra\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
