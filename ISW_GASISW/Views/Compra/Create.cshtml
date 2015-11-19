@@ -13,6 +13,13 @@
     <div class="panel-body">
         @using (Html.BeginForm())
         {
+            <div class="col-lg-12">
+                <div class="form-group">
+                    Seleccione la forma de Compra:
+                    @Html.DropDownListFor(m => m.TipoCompra, new SelectList(ViewBag.TipoCompra,"id","nombre"),String.Empty)
+                </div>
+            </div>
+            <br />
             <div class="container table-responsive toggle-circle-filled">
                 <div class="col-lg-11">
                     <table id="mytab1" data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="3">

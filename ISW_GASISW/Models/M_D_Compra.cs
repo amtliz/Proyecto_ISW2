@@ -10,6 +10,7 @@ namespace ISW_GASISW.Models
         public string[] Cant { get; set; }
         public string[] id { get; set; }
         public string[] cost { get; set; }
+        public int TipoCompra { get; set; }
         public List<d_compra> Lista { get; set; }
     }
 
