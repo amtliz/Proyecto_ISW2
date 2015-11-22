@@ -37,7 +37,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#">Perfil</a></li>
-                            <li><a href="#"><span class="fa fa-sign-out fa-2x"></span> Cerrar Sesion</a></li>
+                            <li>@Html.ActionLink("Cerrar Session", "LogOut", "Home",new{@class="fa fa-sign-out fa-2x"})</li>
                         </ul>
                     </li>
                 </ul>
@@ -85,6 +85,7 @@
                                 <ul class="nav nav-stacked">
                                     <li>@Html.ActionLink("Orden de Compra", "Index", "OrdenCompra")</li>
                                     <li>@Html.ActionLink("Compras", "Index", "Compra")</li>
+                                    <li>@Html.ActionLink("Nota Credito Compras", "Index", "NotaCreditoCompra")</li>
                                 </ul>
                             </div>
                         </div>

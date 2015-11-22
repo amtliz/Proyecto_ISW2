@@ -62,5 +62,14 @@ namespace ISW_GASISW.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public ActionResult LogOut()
+        {
+            Session["Usuario"] = null;
+            Session["Rol_id"] = null;
+            Session["Empleado_id"] = null;
+
+            return RedirectToAction("Login");
+        }
     }
 }
