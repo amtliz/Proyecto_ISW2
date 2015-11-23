@@ -86,6 +86,7 @@
                                     <li>@Html.ActionLink("Orden de Compra", "Index", "OrdenCompra")</li>
                                     <li>@Html.ActionLink("Compras", "Index", "Compra")</li>
                                     <li>@Html.ActionLink("Nota Credito Compras", "Index", "NotaCreditoCompra")</li>
+                                    <li>@Html.ActionLink("Ventas", "Index", "Venta")</li>
                                 </ul>
                             </div>
                         </div>
@@ -165,12 +166,15 @@
     <script type="text/javascript" src="~/Scripts/footable.paginate.js"></script>
     <script type="text/javascript" src="~/Scripts/footable.sort.js"></script>
     <script type="text/javascript" src="~/Scripts/footable.filter.js"></script>
+
     <script type="text/javascript">
     $(document).ready(function () {
         $("table").footable();
     });
     </script>
+
     <script type="text/javascript" src="~/Scripts/bootstrap-datepicker.js"></script>
+
     <script>
         $(document).ready(function () {
             $('.datepicker').datepicker({
@@ -178,6 +182,18 @@
                 startDate: '-3d'
             });
         });
+    </script>    
+
+    <script>
+        $(document).ready(function () {
+            $('#addRow').on('click', function () {
+                var original = document.getElementById("fila");
+                var nuevo = original.cloneNode(true);
+                destino = document.getElementById("mytab1");
+                destino.appendChild(nuevo);
+            })
+        });
     </script>
+
 </body>
 </html>

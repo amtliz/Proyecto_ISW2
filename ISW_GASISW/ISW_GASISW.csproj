@@ -159,6 +159,7 @@
     <Compile Include="Controllers\TipoFacturacionController.cs" />
     <Compile Include="Controllers\TipoMovimientoCajaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Controllers\VentaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -236,6 +237,7 @@
     </Compile>
     <Compile Include="Models\M_D_Compra.cs" />
     <Compile Include="Models\M_D_Orden_Compra.cs" />
+    <Compile Include="Models\M_D_Venta.cs" />
     <Compile Include="Models\M_M_Compra.cs" />
     <Compile Include="Models\M_M_Orden_Compra.cs" />
     <Compile Include="Models\M_Nota_Credito_Compra.cs" />
@@ -530,6 +532,8 @@
     <Content Include="Views\Compra\Create.cshtml" />
     <Content Include="Views\NotaCreditoCompra\Index.cshtml" />
     <Content Include="Views\NotaCreditoCompra\Create.cshtml" />
+    <Content Include="Views\Venta\Index.cshtml" />
+    <Content Include="Views\Venta\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

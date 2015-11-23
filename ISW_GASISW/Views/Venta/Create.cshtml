@@ -1,0 +1,70 @@
+﻿@model ISW_GASISW.Models.M_D_Venta
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Nueva - Venta
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="col-lg-12">
+                <div class="form-group">
+                    Seleccione la forma de Facturacion:
+                    @Html.DropDownListFor(m => m.TipoFacturacion, new SelectList(ViewBag.TipoFacturacion, "id", "nombre"), String.Empty)
+                </div>
+            </div>
+            <br />
+            <div class="col-lg-12">
+                <input type="button" id="addRow" value="Agregar" />
+            </div>
+            <br />
+            <div class="container table-responsive toggle-circle-filled">
+                <div class="col-lg-11">
+                    <table id="mytab1" data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="3">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody id="TableBody">
+                            <tr id="fila">
+                                <td>
+                                    @Html.DropDownListFor(m => m.id, new SelectList(ViewBag.Producto, "id", "nombre"), String.Empty)
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Cant)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*<script>
+    function AddRow() {       
+        var table = document.getElementById("mytab1");
+        var fila = document.createElement("tr");
+        fila.innerHTML = "<td></td><td></td>"
+        table.appendChild(fila);
+            //var row = table.insertRow(1);
+            //var cell1 = row.insertCell(0);
+            //var cell2 = row.insertCell(1);
+            //cell1.innerHTML = "Quiero insertar input text aaqui";
+            //cell2.innerHTML = "Aqui tambien";
+    }
+</script>*@
