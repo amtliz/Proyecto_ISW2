@@ -242,6 +242,7 @@
     <Compile Include="Models\M_D_Venta.cs" />
     <Compile Include="Models\M_M_Compra.cs" />
     <Compile Include="Models\M_M_Orden_Compra.cs" />
+    <Compile Include="Models\M_M_Venta.cs" />
     <Compile Include="Models\M_Nota_Credito_Compra.cs" />
     <Compile Include="Models\M_Nota_Credito_Venta.cs" />
     <Compile Include="Models\m_orden_compra.cs">
