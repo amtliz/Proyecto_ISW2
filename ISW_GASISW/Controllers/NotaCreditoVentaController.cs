@@ -55,5 +55,26 @@ namespace ISW_GASISW.Controllers
             Session["M_V"] = null;
             return RedirectToAction("Index");
         }
+
+        //
+        // GET: /NotaCreditoVenta/Pagar
+        public ActionResult Pagar(long id = 0)
+        {
+            nota_credito_venta NCV = db.nota_credito_venta.Where(p => p.id == id).Select(p => p).Single();
+            NCV.fecha_pagado = DateTime.Today;
+            facturacion FAC = new facturacion();
+            FAC.TIPO_FACTURACION_id = 2;
+            FAC.M_VENTA_id = Convert.ToInt16(NCV.id);
+            db.facturacion.Add(FAC);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
