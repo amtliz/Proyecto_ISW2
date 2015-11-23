@@ -120,7 +120,7 @@ namespace ISW_GASISW.Controllers
             //Si es Nota de Credito
             if (MC.TIPO_COMPRA_id == 2)
             {
-                return RedirectToAction("Create", "NotaCreditoCompra");
+                return RedirectToAction("Create", "NotaCreditoVenta");
             }
             else
             {

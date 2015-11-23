@@ -34,7 +34,7 @@ namespace ISW_GASISW.Controllers
         }
 
         //
-        // POST: /OrdenCompra/Create
+        // POST: /NotaCreditoCompra/Create
         [HttpPost]
         public ActionResult Create(M_Nota_Credito_Compra MNCC)
         {
@@ -55,7 +55,7 @@ namespace ISW_GASISW.Controllers
         }
 
         //
-        // GET: /OrdenCompra/Aprobar
+        // GET: /NotaCreditoCompra/Pagar
         public ActionResult Pagar(long id = 0)
         {
             nota_credito_compra NCC = db.nota_credito_compra.Where(p => p.id == id).Select(p => p).Single();

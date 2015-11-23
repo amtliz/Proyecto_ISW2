@@ -141,10 +141,12 @@
     <Compile Include="Controllers\C_Arduino.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
+    <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\FormulariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MunicipioController.cs" />
     <Compile Include="Controllers\NotaCreditoCompraController.cs" />
+    <Compile Include="Controllers\NotaCreditoVentaController.cs" />
     <Compile Include="Controllers\OrdenCompraController.cs" />
     <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\PresentacionProductoController.cs" />
@@ -241,6 +243,7 @@
     <Compile Include="Models\M_M_Compra.cs" />
     <Compile Include="Models\M_M_Orden_Compra.cs" />
     <Compile Include="Models\M_Nota_Credito_Compra.cs" />
+    <Compile Include="Models\M_Nota_Credito_Venta.cs" />
     <Compile Include="Models\m_orden_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
@@ -534,6 +537,8 @@
     <Content Include="Views\NotaCreditoCompra\Create.cshtml" />
     <Content Include="Views\Venta\Index.cshtml" />
     <Content Include="Views\Venta\Create.cshtml" />
+    <Content Include="Views\NotaCreditoVenta\Index.cshtml" />
+    <Content Include="Views\NotaCreditoVenta\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
