@@ -12,27 +12,45 @@ namespace ISW_GASISW.Controllers
     public class CajaController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Caja/
 
         public ActionResult Index()
         {
-            var caja = db.caja.Include(c => c.sucursal);
-            return View(caja.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Caja", "Index");
+            if (Validacion)
+            {
+                var caja = db.caja.Include(c => c.sucursal);
+                return View(caja.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
-
         //
         // GET: /Caja/Details/5
 
         public ActionResult Details(long id = 0)
         {
-            caja caja = db.caja.Find(id);
-            if (caja == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Caja", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                caja caja = db.caja.Find(id);
+                if (caja == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(caja);
             }
-            return View(caja);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -40,8 +58,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre");
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Caja", "Create");
+            if (Validacion)
+            {
+                ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -67,13 +94,22 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            caja caja = db.caja.Find(id);
-            if (caja == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Caja", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                caja caja = db.caja.Find(id);
+                if (caja == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre", caja.SUCURSAL_id);
+                return View(caja);
             }
-            ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre", caja.SUCURSAL_id);
-            return View(caja);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -98,12 +134,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            caja caja = db.caja.Find(id);
-            if (caja == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Caja", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                caja caja = db.caja.Find(id);
+                if (caja == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(caja);
             }
-            return View(caja);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class CategoriaProductoController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /CategoriaProducto/
 
         public ActionResult Index()
         {
-            return View(db.categoria_producto.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "CategoriaProducto", "Index");
+            if (Validacion)
+            {
+                return View(db.categoria_producto.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            categoria_producto categoria_producto = db.categoria_producto.Find(id);
-            if (categoria_producto == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "CategoriaProducto", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                categoria_producto categoria_producto = db.categoria_producto.Find(id);
+                if (categoria_producto == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(categoria_producto);
             }
-            return View(categoria_producto);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,8 +58,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
-        }
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "CategoriaProducto", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+         }
 
         //
         // POST: /CategoriaProducto/Create
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            categoria_producto categoria_producto = db.categoria_producto.Find(id);
-            if (categoria_producto == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "CategoriaProducto", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                categoria_producto categoria_producto = db.categoria_producto.Find(id);
+                if (categoria_producto == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(categoria_producto);
             }
-            return View(categoria_producto);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            categoria_producto categoria_producto = db.categoria_producto.Find(id);
-            if (categoria_producto == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "CategoriaProducto", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                categoria_producto categoria_producto = db.categoria_producto.Find(id);
+                if (categoria_producto == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(categoria_producto);
             }
-            return View(categoria_producto);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

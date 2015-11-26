@@ -8,19 +8,38 @@ namespace ISW_GASISW.Controllers
 {
     public class FacturacionController : Controller
     {
+        Seguridad SEG = new Seguridad();
         //
         // GET: /Facturacion/
 
         public ActionResult Index()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Facturacion", "Index");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
         // GET: /Facturacion/Create
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Facturacion", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
     }
 }

@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class PresentacionProductoController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /PresentacionProducto/
 
         public ActionResult Index()
         {
-            return View(db.presentacion_producto.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "PresentacionProducto", "Index");
+            if (Validacion)
+            {
+                return View(db.presentacion_producto.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            presentacion_producto presentacion_producto = db.presentacion_producto.Find(id);
-            if (presentacion_producto == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "PresentacionProducto", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                presentacion_producto presentacion_producto = db.presentacion_producto.Find(id);
+                if (presentacion_producto == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(presentacion_producto);
             }
-            return View(presentacion_producto);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "PresentacionProducto", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            presentacion_producto presentacion_producto = db.presentacion_producto.Find(id);
-            if (presentacion_producto == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "PresentacionProducto", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                presentacion_producto presentacion_producto = db.presentacion_producto.Find(id);
+                if (presentacion_producto == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(presentacion_producto);
             }
-            return View(presentacion_producto);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            presentacion_producto presentacion_producto = db.presentacion_producto.Find(id);
-            if (presentacion_producto == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "PresentacionProducto", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                presentacion_producto presentacion_producto = db.presentacion_producto.Find(id);
+                if (presentacion_producto == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(presentacion_producto);
             }
-            return View(presentacion_producto);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

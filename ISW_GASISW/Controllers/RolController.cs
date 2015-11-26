@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class RolController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Rol/
 
         public ActionResult Index()
         {
-            return View(db.rol.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Rol", "Index");
+            if (Validacion)
+            {
+                return View(db.rol.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            rol rol = db.rol.Find(id);
-            if (rol == null)
+            int rol1 = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol1, "Rol", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                rol rol = db.rol.Find(id);
+                if (rol == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(rol);
             }
-            return View(rol);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Rol", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            rol rol = db.rol.Find(id);
-            if (rol == null)
+            int rol1 = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol1, "Rol", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                rol rol = db.rol.Find(id);
+                if (rol == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(rol);
             }
-            return View(rol);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            rol rol = db.rol.Find(id);
-            if (rol == null)
+            int rol1 = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol1, "Rol", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                rol rol = db.rol.Find(id);
+                if (rol == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(rol);
             }
-            return View(rol);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

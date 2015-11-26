@@ -12,14 +12,24 @@ namespace ISW_GASISW.Controllers
     public class MunicipioController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Municipio/
 
         public ActionResult Index()
         {
-            var municipio = db.municipio.Include(m => m.departamento);
-            return View(municipio.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Index");
+            if (Validacion)
+            {
+                var municipio = db.municipio.Include(m => m.departamento);
+                return View(municipio.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -27,12 +37,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            municipio municipio = db.municipio.Find(id);
-            if (municipio == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                municipio municipio = db.municipio.Find(id);
+                if (municipio == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(municipio);
             }
-            return View(municipio);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -40,8 +59,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.DEPARTAMENTO_id = new SelectList(db.departamento, "id", "nombre");
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Create");
+            if (Validacion)
+            {
+                ViewBag.DEPARTAMENTO_id = new SelectList(db.departamento, "id", "nombre");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -67,13 +95,22 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            municipio municipio = db.municipio.Find(id);
-            if (municipio == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                municipio municipio = db.municipio.Find(id);
+                if (municipio == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.DEPARTAMENTO_id = new SelectList(db.departamento, "id", "nombre", municipio.DEPARTAMENTO_id);
+                return View(municipio);
             }
-            ViewBag.DEPARTAMENTO_id = new SelectList(db.departamento, "id", "nombre", municipio.DEPARTAMENTO_id);
-            return View(municipio);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -98,12 +135,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            municipio municipio = db.municipio.Find(id);
-            if (municipio == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                municipio municipio = db.municipio.Find(id);
+                if (municipio == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(municipio);
             }
-            return View(municipio);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

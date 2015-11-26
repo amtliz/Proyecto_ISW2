@@ -13,6 +13,7 @@ namespace ISW_GASISW.Controllers
     {
         private gasiswEntities db = new gasiswEntities();
         Seguridad SEG = new Seguridad();
+
         //
         // GET: /Cliente/
 
@@ -36,12 +37,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            cliente cliente = db.cliente.Find(id);
-            if (cliente == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Cliente", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                cliente cliente = db.cliente.Find(id);
+                if (cliente == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cliente);
             }
-            return View(cliente);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -49,8 +59,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre");
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Cliente", "Create");
+            if (Validacion)
+            {
+                ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -76,13 +95,22 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            cliente cliente = db.cliente.Find(id);
-            if (cliente == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Cliente", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                cliente cliente = db.cliente.Find(id);
+                if (cliente == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre", cliente.MUNICIPIO_id);
+                return View(cliente);
             }
-            ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre", cliente.MUNICIPIO_id);
-            return View(cliente);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -107,12 +135,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            cliente cliente = db.cliente.Find(id);
-            if (cliente == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Cliente", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                cliente cliente = db.cliente.Find(id);
+                if (cliente == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(cliente);
             }
-            return View(cliente);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

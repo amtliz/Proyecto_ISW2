@@ -12,40 +12,59 @@ namespace ISW_GASISW.Controllers
     public class VentaController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Venta/
         public ActionResult Index()
         {
-            Session["M_V"] = null;
-            var Lista = db.d_venta.Select(p => p.m_venta.id).Take(1);
-            List<m_venta> Lista2 = db.m_venta.Include(p => p.d_venta).Where(p => Lista.Contains(p.id)).ToList();
-            M_M_Venta MMV = new M_M_Venta();
-            MMV.ListaMV = Lista2;
-            return View(MMV);
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Venta", "Index");
+            if (Validacion)
+            {
+                Session["M_V"] = null;
+                var Lista = db.d_venta.Select(p => p.m_venta.id).Take(1);
+                List<m_venta> Lista2 = db.m_venta.Include(p => p.d_venta).Where(p => Lista.Contains(p.id)).ToList();
+                M_M_Venta MMV = new M_M_Venta();
+                MMV.ListaMV = Lista2;
+                return View(MMV);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
         // GET: /Venta/Create
         public ActionResult Create()
         {
-            Session["M_V"] = null;
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Venta", "Create");
+            if (Validacion)
+            {
+                Session["M_V"] = null;
 
-            ViewBag.TipoFacturacion = db.tipo_facturacion.ToList();
-            ViewBag.Producto = db.producto.ToList();
+                ViewBag.TipoFacturacion = db.tipo_facturacion.ToList();
+                ViewBag.Producto = db.producto.ToList();
 
-            m_venta MV = new m_venta();
-            MV.fecha_venta = DateTime.Today;
-            MV.EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
-            MV.total = 0;
+                m_venta MV = new m_venta();
+                MV.fecha_venta = DateTime.Today;
+                MV.EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
+                MV.total = 0;
 
-            db.m_venta.Add(MV);
-            db.SaveChanges();
+                db.m_venta.Add(MV);
+                db.SaveChanges();
 
-            int MASTER = Convert.ToInt16(db.m_venta.Max(x => x.id));
-            Session["M_V"] = MASTER;
+                int MASTER = Convert.ToInt16(db.m_venta.Max(x => x.id));
+                Session["M_V"] = MASTER;
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

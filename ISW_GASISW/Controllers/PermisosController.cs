@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class PermisosController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Permisos/
 
         public ActionResult Index()
         {
-            return View(db.permisos.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Permisos", "Index");
+            if (Validacion)
+            {
+                return View(db.permisos.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            permisos permisos = db.permisos.Find(id);
-            if (permisos == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Permisos", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                permisos permisos = db.permisos.Find(id);
+                if (permisos == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(permisos);
             }
-            return View(permisos);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Permisos", "Create");
+            if (Validacion)
+            {
             return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            permisos permisos = db.permisos.Find(id);
-            if (permisos == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Permisos", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                permisos permisos = db.permisos.Find(id);
+                if (permisos == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(permisos);
             }
-            return View(permisos);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            permisos permisos = db.permisos.Find(id);
-            if (permisos == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Permisos", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                permisos permisos = db.permisos.Find(id);
+                if (permisos == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(permisos);
             }
-            return View(permisos);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

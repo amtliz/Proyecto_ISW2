@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class FormulariosController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Formularios/
 
         public ActionResult Index()
         {
-            return View(db.formularios.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Formularios", "Index");
+            if (Validacion)
+            {
+                return View(db.formularios.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            formularios formularios = db.formularios.Find(id);
-            if (formularios == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Formularios", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                formularios formularios = db.formularios.Find(id);
+                if (formularios == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(formularios);
             }
-            return View(formularios);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Formularios", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            formularios formularios = db.formularios.Find(id);
-            if (formularios == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Formularios", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                formularios formularios = db.formularios.Find(id);
+                if (formularios == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(formularios);
             }
-            return View(formularios);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            formularios formularios = db.formularios.Find(id);
-            if (formularios == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Formularios", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                formularios formularios = db.formularios.Find(id);
+                if (formularios == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(formularios);
             }
-            return View(formularios);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

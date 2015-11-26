@@ -12,14 +12,24 @@ namespace ISW_GASISW.Controllers
     public class ProveedorController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Proveedor/
 
         public ActionResult Index()
         {
-            var proveedor = db.proveedor.Include(p => p.municipio);
-            return View(proveedor.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Proveedor", "Index");
+            if (Validacion)
+            {
+                var proveedor = db.proveedor.Include(p => p.municipio);
+                return View(proveedor.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -27,12 +37,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            proveedor proveedor = db.proveedor.Find(id);
-            if (proveedor == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Proveedor", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                proveedor proveedor = db.proveedor.Find(id);
+                if (proveedor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(proveedor);
             }
-            return View(proveedor);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -40,8 +59,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre");
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Proveedor", "Create");
+            if (Validacion)
+            {
+                ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -67,13 +95,22 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            proveedor proveedor = db.proveedor.Find(id);
-            if (proveedor == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Proveedor", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                proveedor proveedor = db.proveedor.Find(id);
+                if (proveedor == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre", proveedor.MUNICIPIO_id);
+                return View(proveedor);
             }
-            ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre", proveedor.MUNICIPIO_id);
-            return View(proveedor);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -98,12 +135,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            proveedor proveedor = db.proveedor.Find(id);
-            if (proveedor == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Proveedor", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                proveedor proveedor = db.proveedor.Find(id);
+                if (proveedor == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(proveedor);
             }
-            return View(proveedor);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

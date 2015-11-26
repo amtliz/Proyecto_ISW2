@@ -12,14 +12,24 @@ namespace ISW_GASISW.Controllers
     public class EmpleadoController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Empleado/
 
         public ActionResult Index()
         {
-            var empleado = db.empleado.Include(e => e.municipio).Include(e => e.sucursal);
-            return View(empleado.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Empleado", "Index");
+            if (Validacion)
+            {
+                var empleado = db.empleado.Include(e => e.municipio).Include(e => e.sucursal);
+                return View(empleado.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -27,12 +37,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            empleado empleado = db.empleado.Find(id);
-            if (empleado == null)
+             int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Empleado", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                empleado empleado = db.empleado.Find(id);
+                if (empleado == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(empleado);
             }
-            return View(empleado);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -40,9 +59,18 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre");
-            ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre");
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Empleado", "Create");
+            if (Validacion)
+            {
+                ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre");
+                ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -69,14 +97,23 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            empleado empleado = db.empleado.Find(id);
-            if (empleado == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Empleado", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                empleado empleado = db.empleado.Find(id);
+                if (empleado == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre", empleado.MUNICIPIO_id);
+                ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre", empleado.SUCURSAL_id);
+                return View(empleado);
             }
-            ViewBag.MUNICIPIO_id = new SelectList(db.municipio, "id", "nombre", empleado.MUNICIPIO_id);
-            ViewBag.SUCURSAL_id = new SelectList(db.sucursal, "id", "nombre", empleado.SUCURSAL_id);
-            return View(empleado);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -102,12 +139,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            empleado empleado = db.empleado.Find(id);
-            if (empleado == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Empleado", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                empleado empleado = db.empleado.Find(id);
+                if (empleado == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(empleado);
             }
-            return View(empleado);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

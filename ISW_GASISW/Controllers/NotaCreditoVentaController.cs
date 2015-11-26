@@ -12,26 +12,45 @@ namespace ISW_GASISW.Controllers
     public class NotaCreditoVentaController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /NotaCreditoVenta/
         public ActionResult Index()
         {
-            List<nota_credito_venta> LNCV = db.nota_credito_venta.ToList();
-            return View(LNCV);
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "NotaCreditoVenta", "Index");
+            if (Validacion)
+            {
+                List<nota_credito_venta> LNCV = db.nota_credito_venta.ToList();
+                return View(LNCV);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
         // GET: /NotaCreditoVenta/Create
         public ActionResult Create()
         {
-            //Obteniendo el valor del Master Compra
-            int Maestro = Convert.ToInt16(Session["M_V"]);
-            ViewBag.Cliente_id = db.cliente.ToList();
-            m_venta MV = db.m_venta.Where(p => p.id == Maestro).Single();
-            M_Nota_Credito_Venta MNCV = new M_Nota_Credito_Venta();
-            MNCV.MV = MV;
-            return View(MNCV);
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "NotaCreditoVenta", "Create");
+            if (Validacion)
+            {
+                //Obteniendo el valor del Master Compra
+                int Maestro = Convert.ToInt16(Session["M_V"]);
+                ViewBag.Cliente_id = db.cliente.ToList();
+                m_venta MV = db.m_venta.Where(p => p.id == Maestro).Single();
+                M_Nota_Credito_Venta MNCV = new M_Nota_Credito_Venta();
+                MNCV.MV = MV;
+                return View(MNCV);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -60,21 +79,30 @@ namespace ISW_GASISW.Controllers
         // GET: /NotaCreditoVenta/Pagar
         public ActionResult Pagar(long id = 0)
         {
-            nota_credito_venta NCV = db.nota_credito_venta.Where(p => p.id == id).Select(p => p).Single();
-            NCV.fecha_pagado = DateTime.Today;
-            facturacion FAC = new facturacion();
-            FAC.TIPO_FACTURACION_id = 2;
-            FAC.M_VENTA_id = Convert.ToInt16(NCV.id);
-            db.facturacion.Add(FAC);
-            try
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "NotaCreditoVenta", "Pagar");
+            if (Validacion)
             {
-                db.SaveChanges();
+                nota_credito_venta NCV = db.nota_credito_venta.Where(p => p.id == id).Select(p => p).Single();
+                NCV.fecha_pagado = DateTime.Today;
+                facturacion FAC = new facturacion();
+                FAC.TIPO_FACTURACION_id = 2;
+                FAC.M_VENTA_id = Convert.ToInt16(NCV.id);
+                db.facturacion.Add(FAC);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                return RedirectToAction("Index");
             }
-            catch (Exception e)
+            else
             {
-                throw e;
+                return RedirectToAction("Error");
             }
-            return RedirectToAction("Index");
         }
     }
 }

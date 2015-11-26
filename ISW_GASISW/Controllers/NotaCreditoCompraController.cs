@@ -12,25 +12,44 @@ namespace ISW_GASISW.Controllers
     public class NotaCreditoCompraController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /NotaCreditoCompra/
         public ActionResult Index()
         {
-            List<nota_credito_compra> LNCC = db.nota_credito_compra.ToList();
-            return View(LNCC);
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "NotaCreditoCompra", "Index");
+            if (Validacion)
+            {
+                List<nota_credito_compra> LNCC = db.nota_credito_compra.ToList();
+                return View(LNCC);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
         // GET: /NotaCreditoCompra/Create
         public ActionResult Create()
         {
-            //Obteniendo el valor del Master Compra
-            int Maestro = Convert.ToInt16(Session["M_C"]);
-            m_compra MC = db.m_compra.Where(p => p.id == Maestro).Single();            
-            M_Nota_Credito_Compra MNCC = new M_Nota_Credito_Compra();
-            MNCC.MC = MC;
-            return View(MNCC);
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "NotaCreditoCompra", "Create");
+            if (Validacion)
+            {
+                //Obteniendo el valor del Master Compra
+                int Maestro = Convert.ToInt16(Session["M_C"]);
+                m_compra MC = db.m_compra.Where(p => p.id == Maestro).Single();            
+                M_Nota_Credito_Compra MNCC = new M_Nota_Credito_Compra();
+                MNCC.MC = MC;
+                return View(MNCC);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -58,17 +77,26 @@ namespace ISW_GASISW.Controllers
         // GET: /NotaCreditoCompra/Pagar
         public ActionResult Pagar(long id = 0)
         {
-            nota_credito_compra NCC = db.nota_credito_compra.Where(p => p.id == id).Select(p => p).Single();
-            NCC.fecha_paga = DateTime.Today;
-            try
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "NotaCreditoCompra", "Pagar");
+            if (Validacion)
             {
-                db.SaveChanges();
+                nota_credito_compra NCC = db.nota_credito_compra.Where(p => p.id == id).Select(p => p).Single();
+                NCC.fecha_paga = DateTime.Today;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                return RedirectToAction("Index");
             }
-            catch (Exception e)
+            else
             {
-                throw e;
+                return RedirectToAction("Error");
             }
-            return RedirectToAction("Index");
         }
     }
 }

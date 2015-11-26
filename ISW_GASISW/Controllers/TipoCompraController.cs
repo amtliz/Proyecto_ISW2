@@ -12,15 +12,23 @@ namespace ISW_GASISW.Controllers
     public class TipoCompraController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /TipoCompra/
 
         public ActionResult Index()
         {
-            
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoCompra", "Index");
+            if (Validacion)
+            {
                 return View(db.tipo_compra.ToList());
-            
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -28,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            tipo_compra tipo_compra = db.tipo_compra.Find(id);
-            if (tipo_compra == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoCompra", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                tipo_compra tipo_compra = db.tipo_compra.Find(id);
+                if (tipo_compra == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tipo_compra);
             }
-            return View(tipo_compra);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -41,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoCompra", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -66,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            tipo_compra tipo_compra = db.tipo_compra.Find(id);
-            if (tipo_compra == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoCompra", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                tipo_compra tipo_compra = db.tipo_compra.Find(id);
+                if (tipo_compra == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tipo_compra);
             }
-            return View(tipo_compra);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -95,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            tipo_compra tipo_compra = db.tipo_compra.Find(id);
-            if (tipo_compra == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoCompra", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                tipo_compra tipo_compra = db.tipo_compra.Find(id);
+                if (tipo_compra == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tipo_compra);
             }
-            return View(tipo_compra);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

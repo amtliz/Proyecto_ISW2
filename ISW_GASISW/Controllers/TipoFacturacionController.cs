@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class TipoFacturacionController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /TipoFacturacion/
 
         public ActionResult Index()
         {
-            return View(db.tipo_facturacion.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoFacturacion", "Index");
+            if (Validacion)
+            {
+                return View(db.tipo_facturacion.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            tipo_facturacion tipo_facturacion = db.tipo_facturacion.Find(id);
-            if (tipo_facturacion == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoFacturacion", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                tipo_facturacion tipo_facturacion = db.tipo_facturacion.Find(id);
+                if (tipo_facturacion == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tipo_facturacion);
             }
-            return View(tipo_facturacion);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoFacturacion", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            tipo_facturacion tipo_facturacion = db.tipo_facturacion.Find(id);
-            if (tipo_facturacion == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoFacturacion", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                tipo_facturacion tipo_facturacion = db.tipo_facturacion.Find(id);
+                if (tipo_facturacion == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tipo_facturacion);
             }
-            return View(tipo_facturacion);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            tipo_facturacion tipo_facturacion = db.tipo_facturacion.Find(id);
-            if (tipo_facturacion == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "TipoFacturacion", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                tipo_facturacion tipo_facturacion = db.tipo_facturacion.Find(id);
+                if (tipo_facturacion == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tipo_facturacion);
             }
-            return View(tipo_facturacion);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

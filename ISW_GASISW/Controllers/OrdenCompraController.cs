@@ -12,18 +12,28 @@ namespace ISW_GASISW.Controllers
     public class OrdenCompraController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /OrdenCompra/
         public ActionResult Index()
         {
-            Session["M_O_C"] = null;
-            ViewBag.PROVEEDOR_id = new SelectList(db.proveedor, "id", "nombre"); 
-            var Lista = db.d_orden_compra.Select(p => p.m_orden_compra.id).Take(1);
-            List<m_orden_compra> Lista2 = db.m_orden_compra.Include(p => p.d_orden_compra).Where(p => Lista.Contains(p.id)).ToList();
-            M_M_Orden_Compra MMOC = new M_M_Orden_Compra();
-            MMOC.LMOC = Lista2;            
-            return View(MMOC);
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "OrdenCompra", "Index");
+            if (Validacion)
+            {
+                Session["M_O_C"] = null;
+                ViewBag.PROVEEDOR_id = new SelectList(db.proveedor, "id", "nombre"); 
+                var Lista = db.d_orden_compra.Select(p => p.m_orden_compra.id).Take(1);
+                List<m_orden_compra> Lista2 = db.m_orden_compra.Include(p => p.d_orden_compra).Where(p => Lista.Contains(p.id)).ToList();
+                M_M_Orden_Compra MMOC = new M_M_Orden_Compra();
+                MMOC.LMOC = Lista2;            
+                return View(MMOC);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -50,24 +60,33 @@ namespace ISW_GASISW.Controllers
         // GET: /OrdenCompra/Create
         public ActionResult Create()
         {
-            int Maestro = Convert.ToInt16(Session["M_O_C"]);
-            string cantidadDefault = "0";
-            int proveedor = Convert.ToInt16(db.m_orden_compra.Where(x => x.id == Maestro).Select(X => X.PROVEEDOR_id).Single());
-            List<d_orden_compra> LDOC = new List<d_orden_compra>();
-            List<producto> Producto = db.producto.Include(p => p.categoria_producto).Include(p => p.presentacion_producto).Where(x => x.PROVEEDOR_id == proveedor).ToList();
-            foreach (var prod in Producto)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "OrdeCompra", "Create");
+            if (Validacion)
             {
-                d_orden_compra DOC = new d_orden_compra();
-                DOC.M_ORDEN_COMPRA_id = Maestro;
-                DOC.producto = prod;
-                DOC.cantidad = cantidadDefault;
+                int Maestro = Convert.ToInt16(Session["M_O_C"]);
+                string cantidadDefault = "0";
+                int proveedor = Convert.ToInt16(db.m_orden_compra.Where(x => x.id == Maestro).Select(X => X.PROVEEDOR_id).Single());
+                List<d_orden_compra> LDOC = new List<d_orden_compra>();
+                List<producto> Producto = db.producto.Include(p => p.categoria_producto).Include(p => p.presentacion_producto).Where(x => x.PROVEEDOR_id == proveedor).ToList();
+                foreach (var prod in Producto)
+                {
+                    d_orden_compra DOC = new d_orden_compra();
+                    DOC.M_ORDEN_COMPRA_id = Maestro;
+                    DOC.producto = prod;
+                    DOC.cantidad = cantidadDefault;
 
-                LDOC.Add(DOC);
+                    LDOC.Add(DOC);
+                }
+                M_D_Orden_Compra MDOC = new M_D_Orden_Compra();
+                MDOC.Lista = LDOC;
+
+                return View(MDOC);
             }
-            M_D_Orden_Compra MDOC = new M_D_Orden_Compra();
-            MDOC.Lista = LDOC;
-
-            return View(MDOC);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -103,36 +122,53 @@ namespace ISW_GASISW.Controllers
         // GET: /OrdenCompra/Aprobar
         public ActionResult Aprobar(long id = 0)
         {
-            m_orden_compra MOC = db.m_orden_compra.Where(p => p.id == id).Select(p => p).Single();
-            MOC.estado = true;
-            MOC.aprobado_EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
-            try
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "OrdenCompra", "Aprobar");
+            if (Validacion)
             {
-                db.SaveChanges();
+                m_orden_compra MOC = db.m_orden_compra.Where(p => p.id == id).Select(p => p).Single();
+                MOC.estado = true;
+                MOC.aprobado_EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                return RedirectToAction("Index");
             }
-            catch (Exception e)
+            else
             {
-                throw e;
+                return RedirectToAction("Error");
             }
-            return RedirectToAction("Index");
         }
 
         //
         // GET: /OrdenCompra/Denegar
         public ActionResult Denegar(long id = 0)
         {
-            m_orden_compra MOC = db.m_orden_compra.Where(p => p.id == id).Select(p => p).Single();
-            MOC.estado = false;
-            MOC.aprobado_EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
-            try
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "OrdenCompra", "Denegar");
+            if (Validacion)
             {
-                db.SaveChanges();
+                m_orden_compra MOC = db.m_orden_compra.Where(p => p.id == id).Select(p => p).Single();
+                MOC.estado = false;
+                MOC.aprobado_EMPLEADO_id = Convert.ToInt16(Session["Empleado_id"]);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+                return RedirectToAction("Index");
             }
-            catch (Exception e)
             {
-                throw e;
+                return RedirectToAction("Error");
             }
-            return RedirectToAction("Index");
         }
     }
 }

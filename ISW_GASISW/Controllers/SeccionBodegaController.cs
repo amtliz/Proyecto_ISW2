@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class SeccionBodegaController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /SeccionBodega/
 
         public ActionResult Index()
         {
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "SeccionBodega", "Index");
+            if (Validacion)
+            {
             return View(db.seccion_bodega.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            seccion_bodega seccion_bodega = db.seccion_bodega.Find(id);
-            if (seccion_bodega == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "SeccionBodega", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                seccion_bodega seccion_bodega = db.seccion_bodega.Find(id);
+                if (seccion_bodega == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(seccion_bodega);
             }
-            return View(seccion_bodega);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "SeccionBodega", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            seccion_bodega seccion_bodega = db.seccion_bodega.Find(id);
-            if (seccion_bodega == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "SeccionBodega", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                seccion_bodega seccion_bodega = db.seccion_bodega.Find(id);
+                if (seccion_bodega == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(seccion_bodega);
             }
-            return View(seccion_bodega);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            seccion_bodega seccion_bodega = db.seccion_bodega.Find(id);
-            if (seccion_bodega == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "SeccionBodega", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                seccion_bodega seccion_bodega = db.seccion_bodega.Find(id);
+                if (seccion_bodega == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(seccion_bodega);
             }
-            return View(seccion_bodega);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

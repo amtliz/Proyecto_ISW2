@@ -12,18 +12,28 @@ namespace ISW_GASISW.Controllers
     public class CompraController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Compra/
         public ActionResult Index()
         {
-            Session["M_C"] = null;
-            ViewBag.PROVEEDOR_id = new SelectList(db.proveedor, "id", "nombre");
-            var Lista = db.d_compra.Select(p => p.m_compra.id).Take(1);
-            List<m_compra> Lista2 = db.m_compra.Include(p => p.d_compra).Where(p => Lista.Contains(p.id)).ToList();
-            M_M_Compra MMC = new M_M_Compra();
-            MMC.LMC = Lista2;
-            return View(MMC);
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Compra", "Index");
+            if (Validacion)
+            {
+                Session["M_C"] = null;
+                ViewBag.PROVEEDOR_id = new SelectList(db.proveedor, "id", "nombre");
+                var Lista = db.d_compra.Select(p => p.m_compra.id).Take(1);
+                List<m_compra> Lista2 = db.m_compra.Include(p => p.d_compra).Where(p => Lista.Contains(p.id)).ToList();
+                M_M_Compra MMC = new M_M_Compra();
+                MMC.LMC = Lista2;
+                return View(MMC);
+             }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -51,27 +61,36 @@ namespace ISW_GASISW.Controllers
         // GET: /Compra/Create
         public ActionResult Create()
         {
-            ViewBag.TipoCompra = db.tipo_compra.ToList();
-            int Maestro = Convert.ToInt16(Session["M_C"]);
-            int cantidadDefault = 0;
-            int costoDefault = 0;
-            int totalDefault = 0;
-            int proveedor = Convert.ToInt16(db.m_compra.Where(x => x.id == Maestro).Select(X => X.PROVEEDOR_id).Single());
-            List<d_compra> LDC = new List<d_compra>();
-            List<producto> Producto = db.producto.Include(p => p.categoria_producto).Include(p => p.presentacion_producto).Where(x => x.PROVEEDOR_id == proveedor).ToList();
-            foreach (var prod in Producto)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Compra", "Create");
+            if (Validacion)
             {
-                d_compra DC = new d_compra();
-                DC.M_COMPRA_id = Maestro;
-                DC.producto = prod;
-                DC.cantidad_producto = cantidadDefault;
-                DC.costo_unitario = costoDefault;
-                DC.total = totalDefault;
-                LDC.Add(DC);
+                ViewBag.TipoCompra = db.tipo_compra.ToList();
+                int Maestro = Convert.ToInt16(Session["M_C"]);
+                int cantidadDefault = 0;
+                int costoDefault = 0;
+                int totalDefault = 0;
+                int proveedor = Convert.ToInt16(db.m_compra.Where(x => x.id == Maestro).Select(X => X.PROVEEDOR_id).Single());
+                List<d_compra> LDC = new List<d_compra>();
+                List<producto> Producto = db.producto.Include(p => p.categoria_producto).Include(p => p.presentacion_producto).Where(x => x.PROVEEDOR_id == proveedor).ToList();
+                foreach (var prod in Producto)
+                {
+                    d_compra DC = new d_compra();
+                    DC.M_COMPRA_id = Maestro;
+                    DC.producto = prod;
+                    DC.cantidad_producto = cantidadDefault;
+                    DC.costo_unitario = costoDefault;
+                    DC.total = totalDefault;
+                    LDC.Add(DC);
+                }
+                M_D_Compra MDC = new M_D_Compra();
+                MDC.Lista = LDC;
+                return View(MDC);
             }
-            M_D_Compra MDC = new M_D_Compra();
-            MDC.Lista = LDC;
-            return View(MDC);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

@@ -12,14 +12,24 @@ namespace ISW_GASISW.Controllers
     public class UsuarioController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Usuario/
 
         public ActionResult Index()
         {
-            var usuario = db.usuario.Include(u => u.empleado).Include(u => u.rol);
-            return View(usuario.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Usuario", "Index");
+            if (Validacion)
+            {
+                var usuario = db.usuario.Include(u => u.empleado).Include(u => u.rol);
+                return View(usuario.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -27,12 +37,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            usuario usuario = db.usuario.Find(id);
-            if (usuario == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Usuario", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                usuario usuario = db.usuario.Find(id);
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(usuario);
             }
-            return View(usuario);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -40,9 +59,18 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.EMPLEADO_id = new SelectList(db.empleado, "id", "nombre1");
-            ViewBag.ROL_id = new SelectList(db.rol, "id", "nombre");
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Usuario", "Create");
+            if (Validacion)
+            {
+                ViewBag.EMPLEADO_id = new SelectList(db.empleado, "id", "nombre1");
+                ViewBag.ROL_id = new SelectList(db.rol, "id", "nombre");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -69,14 +97,23 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            usuario usuario = db.usuario.Find(id);
-            if (usuario == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Usuario", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                usuario usuario = db.usuario.Find(id);
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.EMPLEADO_id = new SelectList(db.empleado, "id", "nombre1", usuario.EMPLEADO_id);
+                ViewBag.ROL_id = new SelectList(db.rol, "id", "nombre", usuario.ROL_id);
+                return View(usuario);
             }
-            ViewBag.EMPLEADO_id = new SelectList(db.empleado, "id", "nombre1", usuario.EMPLEADO_id);
-            ViewBag.ROL_id = new SelectList(db.rol, "id", "nombre", usuario.ROL_id);
-            return View(usuario);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -102,12 +139,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            usuario usuario = db.usuario.Find(id);
-            if (usuario == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Usuario", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                usuario usuario = db.usuario.Find(id);
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(usuario);
             }
-            return View(usuario);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //

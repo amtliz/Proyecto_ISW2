@@ -12,13 +12,23 @@ namespace ISW_GASISW.Controllers
     public class DepartamentoController : Controller
     {
         private gasiswEntities db = new gasiswEntities();
+        Seguridad SEG = new Seguridad();
 
         //
         // GET: /Departamento/
 
         public ActionResult Index()
         {
-            return View(db.departamento.ToList());
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Departamento", "Index");
+            if (Validacion)
+            {
+                return View(db.departamento.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -26,12 +36,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            departamento departamento = db.departamento.Find(id);
-            if (departamento == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Departamento", "Details");
+            if (Validacion)
             {
-                return HttpNotFound();
+                departamento departamento = db.departamento.Find(id);
+                if (departamento == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(departamento);
             }
-            return View(departamento);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -39,7 +58,16 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Departamento", "Create");
+            if (Validacion)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -64,12 +92,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            departamento departamento = db.departamento.Find(id);
-            if (departamento == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Departamento", "Edit");
+            if (Validacion)
             {
-                return HttpNotFound();
+                departamento departamento = db.departamento.Find(id);
+                if (departamento == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(departamento);
             }
-            return View(departamento);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
@@ -93,12 +130,21 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Delete(long id = 0)
         {
-            departamento departamento = db.departamento.Find(id);
-            if (departamento == null)
+            int rol = Convert.ToInt16(Session["Rol_id"]);
+            bool Validacion = SEG.ValidarAcceso(rol, "Departamento", "Delete");
+            if (Validacion)
             {
-                return HttpNotFound();
+                departamento departamento = db.departamento.Find(id);
+                if (departamento == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(departamento);
             }
-            return View(departamento);
+            else
+            {
+                return RedirectToAction("Error");
+            }
         }
 
         //
