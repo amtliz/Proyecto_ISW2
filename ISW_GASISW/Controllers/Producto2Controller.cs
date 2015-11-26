@@ -37,7 +37,6 @@ namespace ISW_GASISW.Controllers
 
         //
         // GET: /Producto2/Create
-
         public ActionResult Create()
         {
             ViewBag.CATEGORIA_PRODUCTO_id = new SelectList(db.categoria_producto, "id", "nombre");
@@ -48,7 +47,6 @@ namespace ISW_GASISW.Controllers
 
         //
         // POST: /Producto2/Create
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(producto producto)
@@ -68,7 +66,6 @@ namespace ISW_GASISW.Controllers
 
         //
         // GET: /Producto2/Edit/5
-
         public ActionResult Edit(long id = 0)
         {
             producto producto = db.producto.Find(id);
@@ -84,7 +81,6 @@ namespace ISW_GASISW.Controllers
 
         //
         // POST: /Producto2/Edit/5
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(producto producto)
@@ -103,7 +99,6 @@ namespace ISW_GASISW.Controllers
 
         //
         // GET: /Producto2/Delete/5
-
         public ActionResult Delete(long id = 0)
         {
             producto producto = db.producto.Find(id);
@@ -116,7 +111,6 @@ namespace ISW_GASISW.Controllers
 
         //
         // POST: /Producto2/Delete/5
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
@@ -131,6 +125,29 @@ namespace ISW_GASISW.Controllers
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        //
+        // GET: /Producto2/Activar-Inactivar
+        public ActionResult Activacion()
+        {            
+            List<producto> Productos = db.producto.ToList();
+            return View(Productos);
+        }
+
+        public ActionResult Change(long id)
+        {
+            producto Prod = db.producto.Where(p => p.id == id).Single();
+            if (Prod.estado == true)
+            {
+                Prod.estado = false;
+            }
+            else
+            {
+                Prod.estado = true;
+            }
+            db.SaveChanges();
+            return RedirectToAction("Activacion");
         }
     }
 }

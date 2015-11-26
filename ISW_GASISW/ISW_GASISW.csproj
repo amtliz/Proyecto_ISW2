@@ -540,6 +540,7 @@
     <Content Include="Views\Venta\Create.cshtml" />
     <Content Include="Views\NotaCreditoVenta\Index.cshtml" />
     <Content Include="Views\NotaCreditoVenta\Create.cshtml" />
+    <Content Include="Views\Producto2\Activacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

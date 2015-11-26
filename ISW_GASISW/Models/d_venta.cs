@@ -19,6 +19,7 @@ namespace ISW_GASISW.Models
         public int cantidad_producto { get; set; }
         public float total { get; set; }
         public long M_VENTA_id { get; set; }
+        public float precio_u { get; set; }
     
         public virtual m_venta m_venta { get; set; }
         public virtual producto producto { get; set; }

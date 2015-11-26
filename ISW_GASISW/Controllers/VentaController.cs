@@ -73,6 +73,7 @@ namespace ISW_GASISW.Controllers
                     DV.cantidad_producto = int.Parse(cantidad);
                     DV.total = total;
                     DV.M_VENTA_id = Maestro;
+                    DV.precio_u = precio;
 
                     db.d_venta.Add(DV);
                     db.SaveChanges();

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ISW_GASISW.Models.producto>
+@{
+    ViewBag.Title = "Activacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Opciones - Activacion de Productos
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search fa-2x"></span></span>
+                        <input class="form-control input-lg" id="filter" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container table-responsive toggle-circle-filled">
+            <div class="col-lg-11">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="3">
+                    <thead>
+                        <tr>
+                            <th data-sort-initial="true">Producto</th>
+                            <th>Presentacion</th>
+                            <th>Categoria</th>
+                            <th>Precio Unitario</th>
+                            <th>Estado</th>
+                            <th>Proveedor</th>
+                            <th data-sort-ignore="true"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.presentacion_producto.nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.categoria_producto.nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.precio_venta_u)
+                                </td>
+                                @{
+                            if (item.estado == true)
+                            {
+                                <td>Activo</td>
+                            }
+                            else
+                            {
+                                <td>Inactivo</td>
+                            }
+                                }
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.proveedor.nombre)
+                                </td>
+                                <td>
+                                    <ul class="nav nav-pills">
+                                        @{
+                            if (item.estado == true)
+                            {
+                                <li role="presentation">@Html.ActionLink("Desactivar", "Change", new { id = item.id })</li>
+                            }
+                            else
+                            {
+                                <li role="presentation">@Html.ActionLink("Activar", "Change", new { id = item.id })</li>
+                            }
+}
+                                    </ul>
+                                </td>                                
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <div class="pagination pagination-centered hide-if-no-paging"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
