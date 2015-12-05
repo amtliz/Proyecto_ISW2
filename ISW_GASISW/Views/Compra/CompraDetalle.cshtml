@@ -1,0 +1,79 @@
+﻿@model ISW_GASISW.Models.M_M_Compra
+@{
+    ViewBag.Title = "Reportes - Compra Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Reporte - Compra Detalle
+        </div>
+    </div>
+    <div class="panel-body">        
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search fa-2x"></span></span>
+                        <input class="form-control input-lg" id="filter" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container table-responsive toggle-circle-filled">
+            <div class="col-lg-11">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="5">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha de Compra</th>
+                            <th>Proveedor</th>
+                            <th>Compra hecha por</th>
+                            <th>Tipo de Compra</th>                            
+                            <th>Total Final</th>
+                            <th>Reporte</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.LMC)
+                        {
+                            <tr>
+                                <td>
+                                    @item.id
+                                </td>
+                                <td>
+                                    @item.fecha_compra
+                                </td>
+                                <td>
+                                    @item.proveedor.nombre
+                                </td>
+                                <td>
+                                    @item.empleado.nombre1
+                                </td>
+                                <td>
+                                    @item.tipo_compra.nombre
+                                </td>                               
+                                <td>
+                                    Total de la compra: $ @item.total_compra
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Reporte", "ReporteDetalleCompra/" + item.id.ToString())
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <div class="pagination pagination-centered hide-if-no-paging"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

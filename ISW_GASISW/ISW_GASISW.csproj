@@ -40,12 +40,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -138,11 +143,14 @@
     <Compile Include="Controllers\CategoriaProductoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\CompraController.cs" />
+    <Compile Include="Controllers\C_Ajuste_Invetario.cs" />
     <Compile Include="Controllers\C_Arduino.cs" />
+    <Compile Include="Controllers\C_Ingreso_Caja.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\FacturacionController.cs" />
     <Compile Include="Controllers\FormulariosController.cs" />
+    <Compile Include="Controllers\GasolinaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MunicipioController.cs" />
     <Compile Include="Controllers\NotaCreditoCompraController.cs" />
@@ -156,12 +164,16 @@
     <Compile Include="Controllers\SeccionBodegaController.cs" />
     <Compile Include="Controllers\Seguridad.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
-    <Compile Include="Controllers\TestBombaController.cs" />
     <Compile Include="Controllers\TipoCompraController.cs" />
     <Compile Include="Controllers\TipoFacturacionController.cs" />
     <Compile Include="Controllers\TipoMovimientoCajaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VentaController.cs" />
+    <Compile Include="DSOrdenCompra1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSOrdenCompra1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,6 +219,9 @@
     <Compile Include="Models\empleado.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\estacion.cs">
+      <DependentUpon>BD_GASISW.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\facturacion.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
@@ -237,10 +252,13 @@
     <Compile Include="Models\m_compra.cs">
       <DependentUpon>BD_GASISW.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\M_Consuidor_Final.cs" />
     <Compile Include="Models\M_D_Compra.cs" />
     <Compile Include="Models\M_D_Orden_Compra.cs" />
     <Compile Include="Models\M_D_Venta.cs" />
+    <Compile Include="Models\M_Entrega_Caja.cs" />
     <Compile Include="Models\M_M_Compra.cs" />
+    <Compile Include="Models\M_M_Factura.cs" />
     <Compile Include="Models\M_M_Orden_Compra.cs" />
     <Compile Include="Models\M_M_Venta.cs" />
     <Compile Include="Models\M_Nota_Credito_Compra.cs" />
@@ -396,6 +414,17 @@
     <Content Include="Content\fonts\footable.eot" />
     <Content Include="Content\fonts\footable.ttf" />
     <Content Include="Content\fonts\footable.woff" />
+    <Content Include="DSOrdenCompra1.xsc">
+      <DependentUpon>DSOrdenCompra1.xsd</DependentUpon>
+    </Content>
+    <None Include="DSOrdenCompra1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSOrdenCompra1.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="DSOrdenCompra1.xss">
+      <DependentUpon>DSOrdenCompra1.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -541,6 +570,12 @@
     <Content Include="Views\NotaCreditoVenta\Index.cshtml" />
     <Content Include="Views\NotaCreditoVenta\Create.cshtml" />
     <Content Include="Views\Producto2\Activacion.cshtml" />
+    <Content Include="Views\OrdenCompra\Proveedores.cshtml" />
+    <Content Include="Views\OrdenCompra\Ordenes.cshtml" />
+    <Content Include="Views\Facturacion\FacturaDetalle.cshtml" />
+    <Content Include="Views\Venta\ConsumidorFinal.cshtml" />
+    <Content Include="Views\Gasolina\Index.cshtml" />
+    <Content Include="Views\Caja\Entrega.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -550,6 +585,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reportes\Report1.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportCompras.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportDetalleCompra.rdlc" />
+    <EmbeddedResource Include="Reportes\ReportDetalleFactura.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

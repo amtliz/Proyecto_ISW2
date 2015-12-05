@@ -7,8 +7,8 @@ namespace ISW_GASISW.Models
 {
     public class M_PeticionArduino
     {
-        public string bomba { get; set; }
+        public string estacion { get; set; }
         public string tipo { get; set; }
-        public string tiempo { get; set; }
-    }
+        public string giro { get; set; }
+    }   
 }

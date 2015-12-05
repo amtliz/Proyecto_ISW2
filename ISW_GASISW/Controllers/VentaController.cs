@@ -13,36 +13,37 @@ namespace ISW_GASISW.Controllers
     {
         private gasiswEntities db = new gasiswEntities();
         Seguridad SEG = new Seguridad();
+        C_Ingreso_Caja CIC = new C_Ingreso_Caja();
 
         //
         // GET: /Venta/
         public ActionResult Index()
         {
-            int rol = Convert.ToInt16(Session["Rol_id"]);
-            bool Validacion = SEG.ValidarAcceso(rol, "Venta", "Index");
-            if (Validacion)
-            {
+            //int rol = Convert.ToInt16(Session["Rol_id"]);
+            //bool Validacion = SEG.ValidarAcceso(rol, "Venta", "Index");
+            //if (Validacion)
+            //{
                 Session["M_V"] = null;
                 var Lista = db.d_venta.Select(p => p.m_venta.id).Take(1);
                 List<m_venta> Lista2 = db.m_venta.Include(p => p.d_venta).Where(p => Lista.Contains(p.id)).ToList();
                 M_M_Venta MMV = new M_M_Venta();
                 MMV.ListaMV = Lista2;
                 return View(MMV);
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Error");
+            //}
         }
 
         //
         // GET: /Venta/Create
         public ActionResult Create()
         {
-            int rol = Convert.ToInt16(Session["Rol_id"]);
-            bool Validacion = SEG.ValidarAcceso(rol, "Venta", "Create");
-            if (Validacion)
-            {
+            //int rol = Convert.ToInt16(Session["Rol_id"]);
+            //bool Validacion = SEG.ValidarAcceso(rol, "Venta", "Create");
+            //if (Validacion)
+            //{
                 Session["M_V"] = null;
 
                 ViewBag.TipoFacturacion = db.tipo_facturacion.ToList();
@@ -60,11 +61,11 @@ namespace ISW_GASISW.Controllers
                 Session["M_V"] = MASTER;
 
                 return View();
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Error");
+            //}
         }
 
         //
@@ -76,6 +77,7 @@ namespace ISW_GASISW.Controllers
             int Maestro = Convert.ToInt16(Session["M_V"]);
             int TipoFacturacion = MDV.TipoFacturacion;
             float totalMaster = 0;
+            int caja = Convert.ToInt16(Session["Caja_id"]);
             //recorriendo Arrays
             for (int i = 0; i < MDV.Cant.Count(); i++)
             {
@@ -111,16 +113,48 @@ namespace ISW_GASISW.Controllers
             {
                 throw e;
             }
-
-            if (TipoFacturacion == 1)
+            if (TipoFacturacion == 1)           //Nota de Credito Venta
             {
                 return RedirectToAction("Create", "NotaCreditoVenta");
+            }
+            else if(TipoFacturacion == 2)       //tiquete
+            {
+                facturacion F = new facturacion();
+                F.TIPO_FACTURACION_id = TipoFacturacion;
+                F.M_VENTA_id = MV.id;
+                db.facturacion.Add(F);
+                db.SaveChanges();
+
+                CIC.Ingreso(caja, totalMaster, Maestro);
+                return Redirect("Index");
+
+            }
+            else if (TipoFacturacion == 3)       //Consumidor
+            {
+                CIC.Ingreso(caja, totalMaster, Maestro);
+                return RedirectToAction("ConsumidorFinal");
+            }
+            else if (TipoFacturacion == 4)       //Credito fiscal
+            {
+                CIC.Ingreso(caja, totalMaster, Maestro);
+                return RedirectToAction("CreditoFiscal");
             }
             else
             {
                 return RedirectToAction("Index");
             } 
 
+        }
+        //GET
+
+        public ActionResult ConsumidorFinal()
+        {
+            return Redirect("Index");
+        }
+
+        public ActionResult CreditoFiscal()
+        {
+            return Redirect("Index");
         }
     }
 }

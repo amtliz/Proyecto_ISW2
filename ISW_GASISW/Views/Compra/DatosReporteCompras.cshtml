@@ -1,0 +1,43 @@
+﻿@model ISW_GASISW.Models.M_M_Compra
+@{
+    ViewBag.Title = "Reporte - Compras Proveedor/Fecha";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Reportes - Compras Proveedor/Fecha
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @using (@Html.BeginForm())
+                        {
+                            <h5 class="text-primary">Reporte de Compras</h5>
+                            <div class="form-group">
+                                <label for="Proveedor_id" class="col-lg-2 control-label">Proveedor</label>
+                                <div class="col-lg-4">
+                                    @Html.DropDownListFor(m => m.proveedor, (IEnumerable<SelectListItem>)ViewBag.PROVEEDOR_id, new { @class = "dropdown" })
+                                </div>
+                                @*<label for="fecha" class="col-lg-2 control-label">Fecha</label>*@
+                                @*<div class="col-lg-4">   
+                                    <div class="col-xs-5 date">
+                                        <div class="input-group input-append date" id="dateRangePicker">
+                                            <input type="text" class="form-control" name="date" />
+                                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                        </div>
+                                    </div>                                              
+                                </div>*@
+                                <input type="submit" id="New" value="Generar Reporte" class="btn btn-primary" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

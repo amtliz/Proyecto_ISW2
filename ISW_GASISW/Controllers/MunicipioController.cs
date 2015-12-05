@@ -19,17 +19,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Index()
         {
-            int rol = Convert.ToInt16(Session["Rol_id"]);
-            bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Index");
-            if (Validacion)
-            {
+            //int rol = Convert.ToInt16(Session["Rol_id"]);
+            //bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Index");
+            //if (Validacion)
+            //{
                 var municipio = db.municipio.Include(m => m.departamento);
                 return View(municipio.ToList());
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Error");
+            //}
         }
 
         //
@@ -59,17 +59,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Create()
         {
-            int rol = Convert.ToInt16(Session["Rol_id"]);
-            bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Create");
-            if (Validacion)
-            {
+            //int rol = Convert.ToInt16(Session["Rol_id"]);
+            //bool Validacion = SEG.ValidarAcceso(rol, "Municipio", "Create");
+            //if (Validacion)
+            //{
                 ViewBag.DEPARTAMENTO_id = new SelectList(db.departamento, "id", "nombre");
                 return View();
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Error");
+            //}
         }
 
         //

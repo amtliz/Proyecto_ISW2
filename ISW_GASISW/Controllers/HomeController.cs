@@ -54,10 +54,12 @@ namespace ISW_GASISW.Controllers
                 string usuario = USERS.nombre;
                 int rol_id = Convert.ToInt16(db.usuario.Where(x => x.nombre == USERS.nombre).Select(x => x.ROL_id).Single());
                 int Emp_id = Convert.ToInt16(db.usuario.Where(x => x.nombre == USERS.nombre).Select(x => x.EMPLEADO_id).Single());
+                int Caj_id = Convert.ToInt16(db.empleado.Where(p=>p.id == Emp_id).Select(x=>x.Caja_id).Single());
 
                 Session["Usuario"] = usuario;
                 Session["Rol_id"] = rol_id;
                 Session["Empleado_id"] = Emp_id;
+                Session["Caja_id"] = Caj_id;
                 
                 return RedirectToAction("Index");
             }

@@ -1,0 +1,158 @@
+﻿@model ISW_GASISW.Models.M_M_Orden_Compra
+
+@{
+    ViewBag.Title = "Ordenes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Procesos - Orden de Compra
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="btn btn-default linkBlanco">
+                    @Html.ActionLink("Generar Reporte", "ReporteOrdenes")
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search fa-2x"></span></span>
+                        <input class="form-control input-lg" id="filter" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container table-responsive toggle-circle-filled">
+            <div class="col-lg-11">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="5">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha de Emision</th>
+                            <th>Emitida Por</th>
+                            <th>Al Proveedor</th>
+                            <th>Estado</th>
+                            <th>Aprobado por</th>
+                            <th data-hide="all">Detalles</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.LMOC)
+                        {
+                            <tr>
+                                <td>
+                                    @item.id
+                                </td>
+                                <td>
+                                    @item.fecha_emitida
+                                </td>
+                                <td>
+                                    @item.empleado.nombre1
+                                </td>
+                                <td>
+                                    @item.proveedor.nombre
+                                </td>
+                                @{
+                            if (item.aprobado_EMPLEADO_id == null)
+                            {
+                                <td>
+                                    Pendiente Aprobacion
+                                </td>
+                            }
+                            else if (item.estado == true)
+                            {
+                                <td>
+                                    Aprobado
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Denegado
+                                </td>
+                            }
+                                }
+                                
+
+                                @{
+                            if (item.aprobado_EMPLEADO_id == null)
+                            {
+                                <td>
+                                    Pendiente Aprobacion
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.empleado1.nombre1
+                                </td>
+                            }
+                                }
+                                <td>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th hidden="hidden">
+                                                    ID Producto
+                                                </th>
+                                                <th>
+                                                    Producto
+                                                </th>
+                                                <th>
+                                                    Presentacion
+                                                </th>
+                                                <th>
+                                                    Categoria
+                                                </th>
+                                                <th>
+                                                    Cantidad
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item2 in item.d_orden_compra)
+                                            {
+                                                <tr>
+                                                    <td hidden="hidden">
+                                                        @item2.id
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.presentacion_producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.producto.categoria_producto.nombre
+                                                    </td>
+                                                    <td>
+                                                        @item2.cantidad
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <div class="pagination pagination-centered hide-if-no-paging"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

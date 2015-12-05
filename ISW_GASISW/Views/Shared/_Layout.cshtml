@@ -51,6 +51,22 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#Gasolina">
+                                    <span class="fa fa-tint fa-2x"></span>Gasolinera
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="Gasolina" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <ul class="nav nav-stacked">
+                                    <li>@Html.ActionLink("Despacho de Gasolina", "Index", "Gasolina")</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#Mantenimientos">
                                     <span class="fa fa-pencil fa-2x"></span>Mantenimientos
                                 </a>
@@ -59,7 +75,6 @@
                         <div id="Mantenimientos" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul class="nav nav-stacked">
-                                    <li>@Html.ActionLink("Testeo de Arduino", "Index", "TestBomba")</li>
                                     <li>@Html.ActionLink("Clientes", "Index", "Cliente")</li>
                                     <li>@Html.ActionLink("Proveedores", "Index", "Proveedor")</li>
                                     <li>@Html.ActionLink("Empleados", "Index", "Empleado")</li>
@@ -88,6 +103,7 @@
                                     <li>@Html.ActionLink("Nota Credito Compras", "Index", "NotaCreditoCompra")</li>
                                     <li>@Html.ActionLink("Ventas", "Index", "Venta")</li>
                                     <li>@Html.ActionLink("Nota Credito Ventas", "Index", "NotaCreditoVenta")</li>
+                                    <li>@Html.ActionLink("Entrega de Caja", "Entrega", "Caja")</li>
                                 </ul>
                             </div>
                         </div>
@@ -129,7 +145,8 @@
                                     <div id="ConCompras" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <ul class="nav nav-stacked">
-                                                <li>Algo</li>
+                                                <li>@Html.ActionLink("Compras Proveedor/Fecha", "DatosReporteCompras", "Compra")</li>
+                                                <li>@Html.ActionLink("Detalle Compra", "CompraDetalle", "Compra")</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -145,7 +162,7 @@
                                     <div id="ConVentas" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <ul class="nav nav-stacked">
-                                                <li>Algo</li>
+                                                <li>@Html.ActionLink("Detalle Factura", "FacturaDetalle", "Facturacion")</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -194,7 +211,7 @@
                                                 <li>@Html.ActionLink("Municipio", "Index", "Municipio")</li>
                                                 <li>@Html.ActionLink("Sucursal", "Index", "Sucursal")</li>
                                                 <li>@Html.ActionLink("Tipo de Facturacion", "Index", "TipoFacturacion")</li>
-                                                <li>@Html.ActionLink("Tipo de Movimiento de Caja", "Index","TipoMovimientoCaja")</li>
+                                                <li>@Html.ActionLink("Tipo de Movimiento de Caja", "Index", "TipoMovimientoCaja")</li>
                                                 <li>@Html.ActionLink("Tipo de Compra", "Index", "TipoCompra")</li>
                                             </ul>
                                         </div>

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "ConsumidorFinal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Crear - Consumidor
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="form-group col-lg-4">
+                        Nombre del Producto
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.nombre)
+                        @Html.ValidationMessageFor(model => model.nombre)
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+

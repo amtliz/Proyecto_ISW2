@@ -169,5 +169,26 @@ namespace ISW_GASISW.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public ActionResult Entrega()
+        {
+            ViewBag.Caja_id = new SelectList(db.caja, "id", "nombre");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Entrega(M_Entrega_Caja MEC)
+        {
+                moviementos_caja MC = new moviementos_caja();
+                MC.CAJA_id = int.Parse(MEC.id);
+                MC.fecha = DateTime.Today;
+                MC.monto = float.Parse(MEC.monto);
+                MC.TIPO_MOVIMIENTO_id = 1;
+
+                db.moviementos_caja.Add(MC);
+                db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

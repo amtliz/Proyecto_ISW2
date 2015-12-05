@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DsFactura" targetNamespace="http://tempuri.org/DsFactura.xsd" xmlns:mstns="http://tempuri.org/DsFactura.xsd" xmlns="http://tempuri.org/DsFactura.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="gasiswConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="gasiswConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.gasiswConnectionString.ConnectionString" Provider="MySql.Data.MySqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="gasiswConnectionString (Web.config)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        facturacion.id, m_venta.id AS venta, m_venta.fecha_venta, cliente.nombre1, cliente.apellido1, facturacion.num_documento, tipo_facturacion.nombre AS facturacion, 
+                         tipo_documento.nombre AS documento, d_venta.PRODUCTO_id, d_venta.cantidad_producto, d_venta.total, d_venta.precio_u, producto.nombre AS producto, 
+                         m_venta.total AS fac_total
+FROM            facturacion INNER JOIN
+                         m_venta ON facturacion.M_VENTA_id = m_venta.id INNER JOIN
+                         d_venta ON m_venta.id = d_venta.M_VENTA_id INNER JOIN
+                         tipo_facturacion ON facturacion.TIPO_FACTURACION_id = tipo_facturacion.id INNER JOIN
+                         tipo_documento ON facturacion.TIPO_DOCUMENTO_id = tipo_documento.id INNER JOIN
+                         cliente ON facturacion.CLIENTE_id = cliente.id INNER JOIN
+                         producto ON d_venta.PRODUCTO_id = producto.id</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id" DataSetColumn="id" />
+              <Mapping SourceColumn="venta" DataSetColumn="venta" />
+              <Mapping SourceColumn="fecha_venta" DataSetColumn="fecha_venta" />
+              <Mapping SourceColumn="nombre1" DataSetColumn="nombre1" />
+              <Mapping SourceColumn="apellido1" DataSetColumn="apellido1" />
+              <Mapping SourceColumn="num_documento" DataSetColumn="num_documento" />
+              <Mapping SourceColumn="facturacion" DataSetColumn="facturacion" />
+              <Mapping SourceColumn="documento" DataSetColumn="documento" />
+              <Mapping SourceColumn="PRODUCTO_id" DataSetColumn="PRODUCTO_id" />
+              <Mapping SourceColumn="cantidad_producto" DataSetColumn="cantidad_producto" />
+              <Mapping SourceColumn="total" DataSetColumn="total" />
+              <Mapping SourceColumn="precio_u" DataSetColumn="precio_u" />
+              <Mapping SourceColumn="producto" DataSetColumn="producto" />
+              <Mapping SourceColumn="fac_total" DataSetColumn="fac_total" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DsFactura" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DsFactura" msprop:Generator_UserDSName="DsFactura">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:unsignedInt" />
+              <xs:element name="venta" msprop:Generator_ColumnVarNameInTable="columnventa" msprop:Generator_ColumnPropNameInRow="venta" msprop:Generator_ColumnPropNameInTable="ventaColumn" msprop:Generator_UserColumnName="venta" type="xs:unsignedInt" />
+              <xs:element name="fecha_venta" msprop:Generator_ColumnVarNameInTable="columnfecha_venta" msprop:Generator_ColumnPropNameInRow="fecha_venta" msprop:Generator_ColumnPropNameInTable="fecha_ventaColumn" msprop:Generator_UserColumnName="fecha_venta" type="xs:dateTime" />
+              <xs:element name="nombre1" msprop:Generator_ColumnVarNameInTable="columnnombre1" msprop:Generator_ColumnPropNameInRow="nombre1" msprop:Generator_ColumnPropNameInTable="nombre1Column" msprop:Generator_UserColumnName="nombre1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="apellido1" msprop:Generator_ColumnVarNameInTable="columnapellido1" msprop:Generator_ColumnPropNameInRow="apellido1" msprop:Generator_ColumnPropNameInTable="apellido1Column" msprop:Generator_UserColumnName="apellido1">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="num_documento" msprop:Generator_ColumnVarNameInTable="columnnum_documento" msprop:Generator_ColumnPropNameInRow="num_documento" msprop:Generator_ColumnPropNameInTable="num_documentoColumn" msprop:Generator_UserColumnName="num_documento" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="facturacion" msprop:Generator_ColumnVarNameInTable="columnfacturacion" msprop:Generator_ColumnPropNameInRow="facturacion" msprop:Generator_ColumnPropNameInTable="facturacionColumn" msprop:Generator_UserColumnName="facturacion">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="documento" msprop:Generator_ColumnVarNameInTable="columndocumento" msprop:Generator_ColumnPropNameInRow="documento" msprop:Generator_ColumnPropNameInTable="documentoColumn" msprop:Generator_UserColumnName="documento">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PRODUCTO_id" msprop:Generator_ColumnVarNameInTable="columnPRODUCTO_id" msprop:Generator_ColumnPropNameInRow="PRODUCTO_id" msprop:Generator_ColumnPropNameInTable="PRODUCTO_idColumn" msprop:Generator_UserColumnName="PRODUCTO_id" type="xs:unsignedInt" />
+              <xs:element name="cantidad_producto" msprop:Generator_ColumnVarNameInTable="columncantidad_producto" msprop:Generator_ColumnPropNameInRow="cantidad_producto" msprop:Generator_ColumnPropNameInTable="cantidad_productoColumn" msprop:Generator_UserColumnName="cantidad_producto" type="xs:int" />
+              <xs:element name="total" msprop:Generator_ColumnVarNameInTable="columntotal" msprop:Generator_ColumnPropNameInRow="total" msprop:Generator_ColumnPropNameInTable="totalColumn" msprop:Generator_UserColumnName="total" type="xs:float" />
+              <xs:element name="precio_u" msprop:Generator_ColumnVarNameInTable="columnprecio_u" msprop:Generator_ColumnPropNameInRow="precio_u" msprop:Generator_ColumnPropNameInTable="precio_uColumn" msprop:Generator_UserColumnName="precio_u" type="xs:float" />
+              <xs:element name="producto" msprop:Generator_ColumnVarNameInTable="columnproducto" msprop:Generator_ColumnPropNameInRow="producto" msprop:Generator_ColumnPropNameInTable="productoColumn" msprop:Generator_UserColumnName="producto">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="45" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="fac_total" msprop:Generator_ColumnVarNameInTable="columnfac_total" msprop:Generator_ColumnPropNameInRow="fac_total" msprop:Generator_ColumnPropNameInTable="fac_totalColumn" msprop:Generator_UserColumnName="fac_total" type="xs:float" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable1" />
+      <xs:field xpath="mstns:id" />
+      <xs:field xpath="mstns:venta" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

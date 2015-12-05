@@ -87,6 +87,7 @@
         <AssociationConnector Association="gasiswModel.fk_LOTE_PRODUCTO1" />
         <AssociationConnector Association="gasiswModel.fk_PRODUCTO_PRESENTACION_PRODUCTO" />
         <AssociationConnector Association="gasiswModel.fk_PRODUCTO_PROVEEDOR1" />
+        <EntityTypeShape EntityType="gasiswModel.estacion" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

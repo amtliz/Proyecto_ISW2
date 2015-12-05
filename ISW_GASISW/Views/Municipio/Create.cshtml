@@ -22,7 +22,7 @@
                             Nombre del Municipio
                         </div>
                         <div class="editor-field">
-                            @Html.EditorFor(model => model.nombre)
+                            @Html.EditorFor(model => model.nombre, new { @Placeholder = "hola" })
                             @Html.ValidationMessageFor(model => model.nombre)
                         </div>
                     </div>

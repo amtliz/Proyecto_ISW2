@@ -1,0 +1,35 @@
+﻿@model ISW_GASISW.Models.M_Entrega_Caja
+@{
+    ViewBag.Title = "Entrega";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Proceso - Entrega de Caja
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label class="control-label">Caja</label>
+                        @Html.DropDownListFor(m => m.id, (IEnumerable<SelectListItem>)ViewBag.Caja_id, new { @class = "dropdown" })
+                    </div>
+                    <div class="col-lg-12">
+                        <label class="control-label">Monto</label>
+                        @Html.TextBoxFor(m=>m.monto)
+                    </div>                                                                        
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <input type="submit" value="Guardar" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

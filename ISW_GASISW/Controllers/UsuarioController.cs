@@ -19,17 +19,17 @@ namespace ISW_GASISW.Controllers
 
         public ActionResult Index()
         {
-            int rol = Convert.ToInt16(Session["Rol_id"]);
-            bool Validacion = SEG.ValidarAcceso(rol, "Usuario", "Index");
-            if (Validacion)
-            {
+            //int rol = Convert.ToInt16(Session["Rol_id"]);
+            //bool Validacion = SEG.ValidarAcceso(rol, "Usuario", "Index");
+            //if (Validacion)
+            //{
                 var usuario = db.usuario.Include(u => u.empleado).Include(u => u.rol);
                 return View(usuario.ToList());
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Error");
+            //}
         }
 
         //

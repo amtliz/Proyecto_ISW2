@@ -44,6 +44,7 @@
           <Property Name="MUNICIPIO_id" Type="uint" Nullable="false" />
           <Property Name="num_dui" Type="varchar" MaxLength="45" />
           <Property Name="email" Type="varchar" MaxLength="45" />
+          <Property Name="giro" Type="varchar" MaxLength="45" />
         </EntityType>
         <EntityType Name="d_compra">
           <Key>
@@ -74,6 +75,7 @@
           <Property Name="cantidad_producto" Type="int" Nullable="false" />
           <Property Name="total" Type="float" Nullable="false" />
           <Property Name="M_VENTA_id" Type="uint" Nullable="false" />
+          <Property Name="precio_u" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -95,6 +97,16 @@
           <Property Name="direccion" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="MUNICIPIO_id" Type="uint" Nullable="false" />
           <Property Name="SUCURSAL_id" Type="uint" Nullable="false" />
+          <Property Name="Caja_id" Type="int" />
+        </EntityType>
+        <EntityType Name="estacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="int" Nullable="false" />
+          <Property Name="cantidad" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="facturacion">
           <Key>
@@ -913,6 +925,7 @@
           <EntitySet Name="d_venta" EntityType="Self.d_venta" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="departamento" EntityType="Self.departamento" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="empleado" EntityType="Self.empleado" Schema="gasisw" store:Type="Tables" />
+          <EntitySet Name="estacion" EntityType="Self.estacion" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="facturacion" EntityType="Self.facturacion" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="formularios" EntityType="Self.formularios" Schema="gasisw" store:Type="Tables" />
           <EntitySet Name="historial_caja" EntityType="Self.historial_caja" Schema="gasisw" store:Type="Tables" />
@@ -1169,6 +1182,7 @@
           <NavigationProperty Name="municipio" Relationship="Self.fk_CLIENTE_MUNICIPIO1" FromRole="cliente" ToRole="municipio" />
           <NavigationProperty Name="facturacion" Relationship="Self.fk_FACTURACION_CLIENTE1" FromRole="cliente" ToRole="facturacion" />
           <NavigationProperty Name="nota_credito_venta" Relationship="Self.fk_NOTA_CREDITO_VENTA_CLIENTE1" FromRole="cliente" ToRole="nota_credito_venta" />
+          <Property Name="giro" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="d_compra">
           <Key>
@@ -1205,6 +1219,7 @@
           <Property Name="M_VENTA_id" Type="Int64" Nullable="false" />
           <NavigationProperty Name="m_venta" Relationship="Self.fk_D_VENTA_M_VENTA1" FromRole="d_venta" ToRole="m_venta" />
           <NavigationProperty Name="producto" Relationship="gasiswModel.fk_D_VENTA_PRODUCTO1" FromRole="d_venta" ToRole="producto" />
+          <Property Name="precio_u" Type="Single" Nullable="false" />
         </EntityType>
         <EntityType Name="departamento">
           <Key>
@@ -1234,6 +1249,7 @@
           <NavigationProperty Name="m_orden_compra" Relationship="Self.fk_ORDEN_COMPRA_EMPLEADO1" FromRole="empleado" ToRole="m_orden_compra" />
           <NavigationProperty Name="m_orden_compra1" Relationship="Self.fk_ORDEN_COMPRA_EMPLEADO2" FromRole="empleado" ToRole="m_orden_compra" />
           <NavigationProperty Name="usuario" Relationship="Self.fk_USUARIO_EMPLEADO1" FromRole="empleado" ToRole="usuario" />
+          <Property Name="Caja_id" Type="Int32" />
         </EntityType>
         <EntityType Name="facturacion">
           <Key>
@@ -2184,6 +2200,7 @@
             <End Role="proveedor" EntitySet="proveedor" />
             <End Role="producto" EntitySet="producto" />
           </AssociationSet>
+          <EntitySet Name="estacion" EntityType="gasiswModel.estacion" />
         </EntityContainer>
         <EntityType Name="accesos">
           <Key>
@@ -2349,6 +2366,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="estacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="Int32" Nullable="false" />
+          <Property Name="cantidad" Type="Single" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2376,6 +2402,7 @@
           <EntitySetMapping Name="cliente">
             <EntityTypeMapping TypeName="gasiswModel.cliente">
               <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="giro" ColumnName="giro" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre1" ColumnName="nombre1" />
                 <ScalarProperty Name="nombre2" ColumnName="nombre2" />
@@ -2414,6 +2441,7 @@
           <EntitySetMapping Name="d_venta">
             <EntityTypeMapping TypeName="gasiswModel.d_venta">
               <MappingFragment StoreEntitySet="d_venta">
+                <ScalarProperty Name="precio_u" ColumnName="precio_u" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="PRODUCTO_id" ColumnName="PRODUCTO_id" />
                 <ScalarProperty Name="cantidad_producto" ColumnName="cantidad_producto" />
@@ -2433,6 +2461,7 @@
           <EntitySetMapping Name="empleado">
             <EntityTypeMapping TypeName="gasiswModel.empleado">
               <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="Caja_id" ColumnName="Caja_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nombre1" ColumnName="nombre1" />
                 <ScalarProperty Name="nombre2" ColumnName="nombre2" />
@@ -2720,6 +2749,16 @@
                 <ScalarProperty Name="CATEGORIA_PRODUCTO_id" ColumnName="CATEGORIA_PRODUCTO_id" />
                 <ScalarProperty Name="PRESENTACION_PRODUCTO_id" ColumnName="PRESENTACION_PRODUCTO_id" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estacion">
+            <EntityTypeMapping TypeName="gasiswModel.estacion">
+              <MappingFragment StoreEntitySet="estacion">
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

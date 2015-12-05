@@ -1,0 +1,79 @@
+﻿@model ISW_GASISW.Models.M_M_Factura
+@{
+    ViewBag.Title = "Reportes - Factura Detalle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Reporte - Factura Detalle
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search fa-2x"></span></span>
+                        <input class="form-control input-lg" id="filter" type="text" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="container table-responsive toggle-circle-filled">
+            <div class="col-lg-11">
+                <table data-filter="#filter" data-filter-text-only="true" class="table" data-page-size="5">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Documento</th>
+                            <th>Venta</th>
+                            <th>Fecha Venta</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Reporte</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.LMC)
+                        {
+                            <tr>
+                                <td>
+                                    @item.id
+                                </td>
+                                <td>
+                                    @item.num_documento
+                                </td>
+                                <td>
+                                    @item.M_VENTA_id
+                                </td>
+                                <td>
+                                    @item.m_venta.fecha_venta
+                                </td>
+                                <td>
+                                    @item.cliente.nombre1 
+                                </td>
+                                <td>
+                                   @item.m_venta.total 
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Reporte", "ReporteDetalleFactura/" + item.id.ToString())
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <div class="pagination pagination-centered hide-if-no-paging"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
